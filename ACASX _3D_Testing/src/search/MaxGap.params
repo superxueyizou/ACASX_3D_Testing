@@ -1,0 +1,87 @@
+# Copyright 2006 by Sean Luke and George Mason University
+# Licensed under the Academic Free License version 3.0
+# See the file "LICENSE" for more information
+
+parent.0		= /home/xueyi/EclipseWorkSpace/Java/ECJ/src/ec/simple/simple.params
+
+#seed.0 = 679463479
+#567672542
+#898946497
+#884185791
+#588764257
+#679463479
+
+pop.subpop.0.size = 50
+generations = 20
+
+pop.subpop.0.species		= ec.vector.FloatVectorSpecies
+pop.subpop.0.species.ind	= ec.vector.DoubleVectorIndividual
+pop.subpop.0.species.fitness 	= ec.simple.SimpleFitness	
+
+# the size of simulation parameters
+pop.subpop.0.species.genome-size	=12
+
+#self config Vy
+pop.subpop.0.species.min-gene.0 = -67
+pop.subpop.0.species.max-gene.0 = 58
+#self config Gs
+pop.subpop.0.species.min-gene.1 =169
+pop.subpop.0.species.max-gene.1 =304
+	
+# intruder CAPY
+pop.subpop.0.species.min-gene.2 = -100 
+pop.subpop.0.species.max-gene.2 = 100
+# intruder CAPR  
+pop.subpop.0.species.min-gene.3 = 0 
+pop.subpop.0.species.max-gene.3 =500
+# intruder CAPTheta
+pop.subpop.0.species.min-gene.4 = -180 
+pop.subpop.0.species.max-gene.4 = 180 
+# intruder CAPVy
+pop.subpop.0.species.min-gene.5 =-67
+pop.subpop.0.species.max-gene.5 =58
+# intruder CAPGs
+pop.subpop.0.species.min-gene.6 = 169 
+pop.subpop.0.species.max-gene.6 = 304
+# intruder CAPBearing
+pop.subpop.0.species.min-gene.7 = -180
+pop.subpop.0.species.max-gene.7 = 180
+# intruder CAPT
+pop.subpop.0.species.min-gene.8 = 20
+pop.subpop.0.species.max-gene.8 = 30
+
+
+# global  stdX
+pop.subpop.0.species.min-gene.9 = 0
+pop.subpop.0.species.max-gene.9 = 10
+# global  stdY
+pop.subpop.0.species.min-gene.10 = 0
+pop.subpop.0.species.max-gene.10 = 10
+# global  stdZ
+pop.subpop.0.species.min-gene.11 = 0
+pop.subpop.0.species.max-gene.11 = 10
+
+pop.subpop.0.species.min-gene = -180
+pop.subpop.0.species.max-gene = 500
+
+pop.subpop.0.species.crossover-type	= two
+pop.subpop.0.species.crossover-likelihood	= 0.8
+
+pop.subpop.0.species.mutation-prob	= 0.05
+pop.subpop.0.species.mutation-type= gauss
+pop.subpop.0.species.mutation-stdev= 0.1
+pop.subpop.0.species.mutation-bounded = true
+pop.subpop.0.species.out-of-bounds-retries = 20
+
+
+#pop.subpop.0.species.mutation-type = polynomial
+#pop.subpop.0.species.mutation-distribution-index=20
+#pop.subpop.0.species.alternative-polynomial-version = true
+
+
+pop.subpop.0.species.pipe = ec.vector.breed.VectorMutationPipeline
+pop.subpop.0.species.pipe.source.0 = ec.vector.breed.VectorCrossoverPipeline
+pop.subpop.0.species.pipe.source.0.source.0 = ec.select.FitProportionateSelection
+pop.subpop.0.species.pipe.source.0.source.1 = ec.select.FitProportionateSelection
+
+eval.problem            = search.MaxGap
