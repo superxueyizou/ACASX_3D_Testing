@@ -1,3 +1,15 @@
+/*******************************************************************************
+ *  Copyright (C) Xueyi Zou - All Rights Reserved
+ *  Written by Xueyi Zou <xz972@york.ac.uk>, 2015
+ *  You are free to use/modify/distribute this file for whatever purpose!
+ *  -----------------------------------------------------------------------
+ *  |THIS FILE IS DISTRIBUTED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ *  |WARRANTY. THE USER WILL USE IT AT HIS/HER OWN RISK. THE ORIGINAL
+ *  |AUTHORS AND COPPELIA ROBOTICS GMBH WILL NOT BE LIABLE FOR DATA LOSS,
+ *  |DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR
+ *  |MISUSING THIS SOFTWARE.
+ *  ------------------------------------------------------------------------
+ *******************************************************************************/
 /**
  * 
  */
@@ -16,6 +28,7 @@ import ec.EvolutionState;
 import ec.Evolve;
 import ec.Individual;
 import ec.util.Output;
+import ec.util.Parameter;
 import ec.util.ParameterDatabase;
 
 /**
@@ -25,7 +38,7 @@ import ec.util.ParameterDatabase;
  */
 public class EvolutionarySearch
 {	
-	public static String problemName="MaxGap";//"MaxGap" , "MaxAccident"
+	public static String problemName="MaxAccident";//"MaxGap" , "MaxAccident"
 	public static File parameterFile= new File("./src/search/"+problemName+".params");	
 	protected static List<String> simDataSet = new ArrayList<>(200);
 	
@@ -41,10 +54,24 @@ public class EvolutionarySearch
 
 		recur(evaluatedState);		
 	}
+	
+	public static void goSearch(long rdmSeed) throws Exception
+	{	
+		ParameterDatabase dBase= new ParameterDatabase(parameterFile, new String[]{"-file", parameterFile.getCanonicalPath()});	
+		ParameterDatabase child = new ParameterDatabase();
+		child.addParent(dBase);	
+		child.set(new Parameter("seed.0"), rdmSeed+"");
+		long startTime = System.currentTimeMillis();
+		GASearch(child);	
+		long endTime = System.currentTimeMillis();
+		System.out.println("Total search time for "+rdmSeed+" is: "+ (endTime-startTime)/1000+"s");	
+	
+	}
 		
 	
 	public static EvolutionState GASearch(ParameterDatabase child)
 	{
+		long seed0 = child.getLong(new Parameter("seed.0"), null);
 		EvolutionState evaluatedState=null;
 		Output out = Evolve.buildOutput();					
 		out.getLog(0).silent=false;//stdout
@@ -55,6 +82,8 @@ public class EvolutionarySearch
 		
 		String title = null;//"SelfVy,SelfGs,CAPY,CAPR,CAPTheta,CAPVy,CAPGS,CAPBearing,CAPT,stdX, stdY, stdZ"+"\n";
 		boolean isAppending = false;
+		String logFileName = problemName+"_ES_" +seed0+ "_Dataset.csv";
+//		String logFileName = "AllInOne_Dataset.csv";
 		
 		int i=0;		
 		while(result == EvolutionState.R_NOTDONE)
@@ -62,8 +91,8 @@ public class EvolutionarySearch
 			result=evaluatedState.evolve();
 			evaluatedState.output.println("Generation "+i +" finished :)", 0);
 			if(simDataSet.size()>=200)
-			{  				
-				UTILS.writeDataSet2CSV(problemName+"_ES_" + "Dataset.csv", title, simDataSet,isAppending);
+			{  		
+				UTILS.writeDataSet2CSV(logFileName, title, simDataSet,isAppending);
 				isAppending =true;
 				simDataSet.clear();
 			}
@@ -93,7 +122,13 @@ public class EvolutionarySearch
 
 	public static void main(String[] args) throws Exception
 	{
-		goSearch();
+//		goSearch();
+		
+		long[] seeds = new long[]{567672542, 898946497, 679463479,884185791, 588764257};//
+		for (long seed:seeds)
+		{
+			goSearch(seed);
+		}
 	}
 
 

@@ -1,3 +1,15 @@
+/*******************************************************************************
+ *  Copyright (C) Xueyi Zou - All Rights Reserved
+ *  Written by Xueyi Zou <xz972@york.ac.uk>, 2015
+ *  You are free to use/modify/distribute this file for whatever purpose!
+ *  -----------------------------------------------------------------------
+ *  |THIS FILE IS DISTRIBUTED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ *  |WARRANTY. THE USER WILL USE IT AT HIS/HER OWN RISK. THE ORIGINAL
+ *  |AUTHORS AND COPPELIA ROBOTICS GMBH WILL NOT BE LIABLE FOR DATA LOSS,
+ *  |DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR
+ *  |MISUSING THIS SOFTWARE.
+ *  ------------------------------------------------------------------------
+ *******************************************************************************/
 /**
  * 
  */
@@ -305,19 +317,19 @@ public class MDP
 				
 		if(actionCode==0)//"COC"
 		{//clear of conflict
-			return 100;
+			return 50;
 		}
 		
 		if( (cstate.getRa()==1||cstate.getRa()==3)&& actionCode==5
 				|| (cstate.getRa()==2||cstate.getRa()==4)&& actionCode==6)
 		{//strengthening
-			return -500;
+			return -100;
 		}
 		
 		if( (cstate.getRa()==1 || cstate.getRa()==3 || cstate.getRa()==5)&& actionCode==4 
 				|| (cstate.getRa()==2 || cstate.getRa()==4 || cstate.getRa()==6)&& actionCode==3 )
 		{//reversal
-			return -1000;
+			return -500;
 		}
 		
 		return 0;

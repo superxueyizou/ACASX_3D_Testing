@@ -1,3 +1,15 @@
+/*******************************************************************************
+ *  Copyright (C) Xueyi Zou - All Rights Reserved
+ *  Written by Xueyi Zou <xz972@york.ac.uk>, 2015
+ *  You are free to use/modify/distribute this file for whatever purpose!
+ *  -----------------------------------------------------------------------
+ *  |THIS FILE IS DISTRIBUTED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ *  |WARRANTY. THE USER WILL USE IT AT HIS/HER OWN RISK. THE ORIGINAL
+ *  |AUTHORS AND COPPELIA ROBOTICS GMBH WILL NOT BE LIABLE FOR DATA LOSS,
+ *  |DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR
+ *  |MISUSING THIS SOFTWARE.
+ *  ------------------------------------------------------------------------
+ *******************************************************************************/
 package search;
 
 import java.util.ArrayList;
@@ -5,6 +17,10 @@ import java.util.List;
 
 import visualization.configuration.Configuration;
 import visualization.configuration.EncounterConfig;
+import visualization.configuration.GlobalConfig;
+import visualization.modeling.SAAModel;
+import visualization.modeling.SimInitializer;
+import visualization.modeling.uas.UAS;
 import ec.util.MersenneTwisterFast;
 import ec.util.Parameter;
 import ec.util.ParameterDatabase;
@@ -14,7 +30,7 @@ public class RandomSearch {
 	static
 	{
 		try
-		{
+		{			
 			dBase =	new ParameterDatabase(EvolutionarySearch.parameterFile, new String[]{"-file", EvolutionarySearch.parameterFile.getCanonicalPath()});
 
 		}
@@ -24,6 +40,9 @@ public class RandomSearch {
 			System.exit(1);
 		}
 	}
+	
+	static long seed0 = dBase.getLong(new Parameter("seed.0"), null);
+	
 	static double minSelfVy = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.0"), null);
 	static double maxSelfVy = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.0"), null);
 	static double minSelfGs = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.1"), null);
@@ -58,6 +77,7 @@ public class RandomSearch {
 		int numSamplePoints=dBase.getInt(new Parameter("pop.subpop.0.size"), null)*dBase.getInt(new Parameter("generations"), null);
 		
 		List<String> simDataSet = new ArrayList<>(200);
+		String csvFileName = "MaxAccident_RDM_" +seed0+ "_Dataset.csv";
 		String title = null;//"SelfVy,SelfGs,CAPY,CAPR,CAPTheta,CAPVy,CAPGS,CAPBearing,CAPT,stdX, stdY, stdZ"+"\n";
 		boolean isAppending = false;
 	
@@ -66,10 +86,17 @@ public class RandomSearch {
 		do
 		{				 	
 	        double totalCost= 0;	
-			long seed = 785945568;
+	        generateRandomConfig(seed0++, false);	
+	        long seed = 785945568;
+			SAAModel simState= new SAAModel(seed, false); 
+			SimInitializer.generateSimulation(simState);
+			if(!MaxAccident.isProper(simState))
+	        {
+	        	continue;
+	        }
+			
 			for(int t=0;t<TIMES; t++)
 	        { 
-				generateRandomConfig(false);	
 				totalCost += 10000.0/(1.0+MaxAccident.sim(seed, null, false));
 	    		seed++;
 	        }		
@@ -78,8 +105,9 @@ public class RandomSearch {
 						
         	simDataSet.add(Configuration.getInstance().toString()+aveCost);			
 			if(simDataSet.size()>=200)
-			{  				
-				UTILS.writeDataSet2CSV("MaxAccident_RDM_" + "Dataset.csv", title, simDataSet,isAppending);
+			{  	
+				
+				UTILS.writeDataSet2CSV(csvFileName, title, simDataSet,isAppending);
 				isAppending =true;
 				simDataSet.clear();
 			}
@@ -88,7 +116,7 @@ public class RandomSearch {
 		} while(sampleCount<numSamplePoints);
 		
 		long endTime = System.currentTimeMillis();
-		System.out.println("Total search time: "+ (endTime-startTime)/1000+"s");
+		System.out.println("Random search finished, total search time: "+ (endTime-startTime)/1000+"s");
 	}
 	
 	public static void searchMaxGap()
@@ -103,6 +131,7 @@ public class RandomSearch {
 		int numSamplePoints=dBase.getInt(new Parameter("pop.subpop.0.size"), null)*dBase.getInt(new Parameter("generations"), null);
 	
 		List<String> simDataSet = new ArrayList<>(200);
+		String csvFileName = "MaxGap_RDM_" +seed0+ "_Dataset.csv";
 		String title = null;//"SelfVy,SelfGs,CAPY,CAPR,CAPTheta,CAPVy,CAPGS,CAPBearing,CAPT,stdX, stdY, stdZ"+"\n";
 		boolean isAppending = false;
 	
@@ -114,11 +143,19 @@ public class RandomSearch {
 	        boolean configGlobal=true;
 			for(int i=0; i<2; ++i)
 			{
-				long seed = 785945568;
 				configGlobal=!configGlobal;
+				generateRandomConfig(seed0++, configGlobal);
+				long seed = 785945568;
+				SAAModel simState= new SAAModel(seed, false); 
+				SimInitializer.generateSimulation(simState);
+				if(!MaxAccident.isProper(simState))
+		        {
+					continue;
+		        }
+				
 				for(int t=0;t<TIMES; t++)
 		        { 
-					generateRandomConfig(configGlobal);	
+						
 					double cost=MaxGap.sim(seed, null, configGlobal);
 					totalCost[i]+=cost;         
 		    		seed++;
@@ -131,7 +168,7 @@ public class RandomSearch {
         	simDataSet.add(Configuration.getInstance().toString()+aveGap);			
 			if(simDataSet.size()>=200)
 			{  				
-				UTILS.writeDataSet2CSV("MaxGap_RDM_" + "Dataset.csv", title, simDataSet,isAppending);
+				UTILS.writeDataSet2CSV(csvFileName, title, simDataSet,isAppending);
 				isAppending =true;
 				simDataSet.clear();
 			}
@@ -140,7 +177,7 @@ public class RandomSearch {
 		} while(sampleCount<numSamplePoints);
 		
 		long endTime = System.currentTimeMillis();
-		System.out.println("Total search time: "+ (endTime-startTime)/1000+"s");
+		System.out.println("Random search finished, total search time: "+ (endTime-startTime)/1000+"s");
 	}
 	
 	public static void main(String[] args)
@@ -159,9 +196,9 @@ public class RandomSearch {
 		}
 	}
 	
-	public static void generateRandomConfig(boolean configGlobal)
+	public static void generateRandomConfig(long seed, boolean configGlobal)
 	{
-		MersenneTwisterFast rdn = new MersenneTwisterFast();
+		MersenneTwisterFast rdn = new MersenneTwisterFast(seed);
 		
 		Configuration config = Configuration.getInstance();
 		
@@ -192,6 +229,7 @@ public class RandomSearch {
 			config.globalConfig.stdDevY = 3;
 			config.globalConfig.stdDevZ = 3;
 		}
-	}
+	}	
+
 
 }

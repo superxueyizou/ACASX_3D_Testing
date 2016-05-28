@@ -1,3 +1,15 @@
+/*******************************************************************************
+ *  Copyright (C) Xueyi Zou - All Rights Reserved
+ *  Written by Xueyi Zou <xz972@york.ac.uk>, 2015
+ *  You are free to use/modify/distribute this file for whatever purpose!
+ *  -----------------------------------------------------------------------
+ *  |THIS FILE IS DISTRIBUTED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ *  |WARRANTY. THE USER WILL USE IT AT HIS/HER OWN RISK. THE ORIGINAL
+ *  |AUTHORS AND COPPELIA ROBOTICS GMBH WILL NOT BE LIABLE FOR DATA LOSS,
+ *  |DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR
+ *  |MISUSING THIS SOFTWARE.
+ *  ------------------------------------------------------------------------
+ *******************************************************************************/
 package search;
 
 import java.io.File;
@@ -6,6 +18,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
+
+//import weka.core.Instances;
+//import weka.core.converters.ArffSaver;
+//import weka.core.converters.CSVLoader;
 
 
 public class UTILS {
@@ -167,5 +183,25 @@ public class UTILS {
             }
         }
     }
+    
+    
+    /** takes 2 arguments:
+    * - cvsFileName input file
+    * - arffFileName output file
+    */
+//	public static void CSV2Arff (String cvsFileName, String arffFileName) throws Exception 
+//	{
+//	    // load CSV
+//	    CSVLoader loader = new CSVLoader();
+//	    loader.setSource(new File(cvsFileName));
+//	    Instances data = loader.getDataSet();
+//	 
+//	    // save ARFF
+//	    ArffSaver saver = new ArffSaver();
+//	    saver.setInstances(data);
+//	    saver.setFile(new File(arffFileName));
+//	    saver.setDestination(new File(arffFileName));
+//	    saver.writeBatch();
+//	}
     
 }

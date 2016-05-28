@@ -1,3 +1,15 @@
+/*******************************************************************************
+ *  Copyright (C) Xueyi Zou - All Rights Reserved
+ *  Written by Xueyi Zou <xz972@york.ac.uk>, 2015
+ *  You are free to use/modify/distribute this file for whatever purpose!
+ *  -----------------------------------------------------------------------
+ *  |THIS FILE IS DISTRIBUTED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
+ *  |WARRANTY. THE USER WILL USE IT AT HIS/HER OWN RISK. THE ORIGINAL
+ *  |AUTHORS AND COPPELIA ROBOTICS GMBH WILL NOT BE LIABLE FOR DATA LOSS,
+ *  |DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING OR
+ *  |MISUSING THIS SOFTWARE.
+ *  ------------------------------------------------------------------------
+ *******************************************************************************/
 /**
  * 
  */
@@ -76,122 +88,50 @@ public class DTMC
 	}
 
 	/*white noise along r and perpendicular to r*/
-	public Map<State_UCtrl,Double> getTransitionStatesAndProbs(State_UCtrl ustate)
-	{
-		Map<State_UCtrl, Double> TransitionStatesAndProbs = new LinkedHashMap<State_UCtrl,Double>();
-
-		ArrayList<AbstractMap.SimpleEntry<State_UCtrl, Double>> nextStateMapProbabilities = new ArrayList<>();
-		
-		for(ThreeTuple<Double, Double, Double> sigmaPoint : sigmaPoints1)
-		{
-			double ra_r=sigmaPoint.x1;
-			double ra_pr=sigmaPoint.x2;
-			double sigmaP=sigmaPoint.x3;
-			
-			double r=ustate.getR();
-			double rv=ustate.getRv();
-			double theta=ustate.getTheta();
-						
-			Double2D vel= new Double2D(rv*Math.cos(Math.toRadians(theta)), rv*Math.sin(Math.toRadians(theta)));
-			Double2D velP= new Double2D(Math.max(-UPPER_RV, Math.min(UPPER_RV, vel.x+ra_r)), Math.max(-UPPER_RV, Math.min(UPPER_RV, vel.y+ra_pr)));
-			if(velP.length()>UPPER_RV)
-			{
-				velP=velP.resize(UPPER_RV);
-			}
-			double rvP=velP.length();
-			
-			Double2D pos= new Double2D(r,0);
-			Double2D posP= new Double2D(pos.x+0.5*(vel.x+velP.x), pos.y+0.5*(vel.y+velP.y));
-			if(posP.length()>UPPER_R)
-			{
-				posP=posP.resize(UPPER_R);
-			}
-			double rP=posP.length();
-			
-			double alpha=velP.angle()-posP.angle();
-			if(alpha> Math.PI)
-	 	   	{
-				alpha= -2*Math.PI +alpha; 
-	 	   	}
-			if(alpha<-Math.PI)
-	 	   	{
-				alpha=2*Math.PI+alpha; 
-	 	   	}
-			double thetaP = Math.toDegrees(alpha);
-		
-
-			int rIdxL = (int)Math.floor(rP/rRes);
-			int rvIdxL = (int)Math.floor(rvP/rvRes);
-			int thetaIdxL = (int)Math.floor(thetaP/thetaRes);
-			for(int i=0;i<=1;i++)
-			{
-				int rIdx = (i==0? rIdxL : rIdxL+1);
-				int rIdxP= rIdx< 0? 0: (rIdx>nr? nr : rIdx);			
-				for(int j=0;j<=1;j++)
-				{
-					int rvIdx = (j==0? rvIdxL : rvIdxL+1);
-					int rvIdxP= rvIdx<0? 0: (rvIdx>nrv? nrv : rvIdx);
-					for(int k=0;k<=1;k++)
-					{
-						int thetaIdx = (k==0? thetaIdxL : thetaIdxL+1);
-						int thetaIdxP= thetaIdx<-ntheta? -ntheta: (thetaIdx>ntheta? ntheta : thetaIdx);
-						
-						State_UCtrl nextState= new State_UCtrl(rIdxP, rvIdxP, thetaIdxP);
-						double probability= sigmaP*(1-Math.abs(rIdx-rP/rRes))*(1-Math.abs(rvIdx-rvP/rvRes))*(1-Math.abs(thetaIdx-thetaP/thetaRes));
-						nextStateMapProbabilities.add(new SimpleEntry<State_UCtrl, Double>(nextState,probability) );
-					}
-				}
-			}	
-			
-		}			
-
-		for(AbstractMap.SimpleEntry<State_UCtrl, Double> nextStateMapProb :nextStateMapProbabilities)
-		{	
-			State_UCtrl nextState=nextStateMapProb.getKey();
-			if(TransitionStatesAndProbs.containsKey(nextState))
-			{				
-				TransitionStatesAndProbs.put(nextState, TransitionStatesAndProbs.get(nextState)+nextStateMapProb.getValue());
-			}
-			else
-			{
-				TransitionStatesAndProbs.put(nextState, nextStateMapProb.getValue());
-			}		
-			
-		}
-		
-		return TransitionStatesAndProbs;
-	}	
-	
-	/*white noise for relative velocity and turning angle*/
 //	public Map<State_UCtrl,Double> getTransitionStatesAndProbs(State_UCtrl ustate)
 //	{
 //		Map<State_UCtrl, Double> TransitionStatesAndProbs = new LinkedHashMap<State_UCtrl,Double>();
 //
 //		ArrayList<AbstractMap.SimpleEntry<State_UCtrl, Double>> nextStateMapProbabilities = new ArrayList<>();
 //		
-//		for(ThreeTuple<Double, Double, Double> sigmaPoint : sigmaPoints2)
+//		for(ThreeTuple<Double, Double, Double> sigmaPoint : sigmaPoints1)
 //		{
-//			double ra=sigmaPoint.x1;//relative velocity acceleration
-//			double alpha=sigmaPoint.x2;//relative angular acceleration
+//			double ra_r=sigmaPoint.x1;
+//			double ra_pr=sigmaPoint.x2;
 //			double sigmaP=sigmaPoint.x3;
 //			
 //			double r=ustate.getR();
 //			double rv=ustate.getRv();
 //			double theta=ustate.getTheta();
+//						
+//			Double2D vel= new Double2D(rv*Math.cos(Math.toRadians(theta)), rv*Math.sin(Math.toRadians(theta)));
+//			Double2D velP= new Double2D(Math.max(-UPPER_RV, Math.min(UPPER_RV, vel.x+ra_r)), Math.max(-UPPER_RV, Math.min(UPPER_RV, vel.y+ra_pr)));
+//			if(velP.length()>UPPER_RV)
+//			{
+//				velP=velP.resize(UPPER_RV);
+//			}
+//			double rvP=velP.length();
 //			
-//			double rvP= Math.max(-UPPER_RV, Math.min(UPPER_RV, rv+ra));
-//			double thetaP=theta+alpha;
-//			if(thetaP> Math.PI)
-//	 	   	{
-//				thetaP= -2*Math.PI +thetaP; 
-//	 	   	}
-//			if(thetaP<-Math.PI)
-//	 	   	{
-//				thetaP=2*Math.PI+thetaP; 
-//	 	   	}
-//					
-//			double rP= Math.max(-UPPER_R, Math.min(UPPER_R,  r+rv*Math.cos(Math.toRadians(theta))));
+//			Double2D pos= new Double2D(r,0);
+//			Double2D posP= new Double2D(pos.x+0.5*(vel.x+velP.x), pos.y+0.5*(vel.y+velP.y));
+//			if(posP.length()>UPPER_R)
+//			{
+//				posP=posP.resize(UPPER_R);
+//			}
+//			double rP=posP.length();
 //			
+//			double alpha=velP.angle()-posP.angle();
+//			if(alpha> Math.PI)
+//	 	   	{
+//				alpha= -2*Math.PI +alpha; 
+//	 	   	}
+//			if(alpha<-Math.PI)
+//	 	   	{
+//				alpha=2*Math.PI+alpha; 
+//	 	   	}
+//			double thetaP = Math.toDegrees(alpha);
+//		
+//
 //			int rIdxL = (int)Math.floor(rP/rRes);
 //			int rvIdxL = (int)Math.floor(rvP/rvRes);
 //			int thetaIdxL = (int)Math.floor(thetaP/thetaRes);
@@ -233,5 +173,77 @@ public class DTMC
 //		
 //		return TransitionStatesAndProbs;
 //	}	
+	
+	/*white noise for relative velocity and turning angle*/
+	public Map<State_UCtrl,Double> getTransitionStatesAndProbs(State_UCtrl ustate)
+	{
+		Map<State_UCtrl, Double> TransitionStatesAndProbs = new LinkedHashMap<State_UCtrl,Double>();
+
+		ArrayList<AbstractMap.SimpleEntry<State_UCtrl, Double>> nextStateMapProbabilities = new ArrayList<>();
+		
+		for(ThreeTuple<Double, Double, Double> sigmaPoint : sigmaPoints2)
+		{
+			double ra=sigmaPoint.x1;//relative velocity acceleration
+			double alpha=sigmaPoint.x2;//relative angular acceleration
+			double sigmaP=sigmaPoint.x3;
+			
+			double r=ustate.getR();
+			double rv=ustate.getRv();
+			double theta=ustate.getTheta();
+			
+			double rvP= Math.max(-UPPER_RV, Math.min(UPPER_RV, rv+ra));
+			double thetaP=theta+alpha;
+			if(thetaP> Math.PI)
+	 	   	{
+				thetaP= -2*Math.PI +thetaP; 
+	 	   	}
+			if(thetaP<-Math.PI)
+	 	   	{
+				thetaP=2*Math.PI+thetaP; 
+	 	   	}
+					
+			double rP= Math.max(-UPPER_R, Math.min(UPPER_R,  r+rv*Math.cos(Math.toRadians(theta))));
+			
+			int rIdxL = (int)Math.floor(rP/rRes);
+			int rvIdxL = (int)Math.floor(rvP/rvRes);
+			int thetaIdxL = (int)Math.floor(thetaP/thetaRes);
+			for(int i=0;i<=1;i++)
+			{
+				int rIdx = (i==0? rIdxL : rIdxL+1);
+				int rIdxP= rIdx< 0? 0: (rIdx>nr? nr : rIdx);			
+				for(int j=0;j<=1;j++)
+				{
+					int rvIdx = (j==0? rvIdxL : rvIdxL+1);
+					int rvIdxP= rvIdx<0? 0: (rvIdx>nrv? nrv : rvIdx);
+					for(int k=0;k<=1;k++)
+					{
+						int thetaIdx = (k==0? thetaIdxL : thetaIdxL+1);
+						int thetaIdxP= thetaIdx<-ntheta? -ntheta: (thetaIdx>ntheta? ntheta : thetaIdx);
+						
+						State_UCtrl nextState= new State_UCtrl(rIdxP, rvIdxP, thetaIdxP);
+						double probability= sigmaP*(1-Math.abs(rIdx-rP/rRes))*(1-Math.abs(rvIdx-rvP/rvRes))*(1-Math.abs(thetaIdx-thetaP/thetaRes));
+						nextStateMapProbabilities.add(new SimpleEntry<State_UCtrl, Double>(nextState,probability) );
+					}
+				}
+			}	
+			
+		}			
+
+		for(AbstractMap.SimpleEntry<State_UCtrl, Double> nextStateMapProb :nextStateMapProbabilities)
+		{	
+			State_UCtrl nextState=nextStateMapProb.getKey();
+			if(TransitionStatesAndProbs.containsKey(nextState))
+			{				
+				TransitionStatesAndProbs.put(nextState, TransitionStatesAndProbs.get(nextState)+nextStateMapProb.getValue());
+			}
+			else
+			{
+				TransitionStatesAndProbs.put(nextState, nextStateMapProb.getValue());
+			}		
+			
+		}
+		
+		return TransitionStatesAndProbs;
+	}	
 	
 }
