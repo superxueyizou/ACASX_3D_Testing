@@ -28,15 +28,15 @@ import acasx3d.generation.MDPVI;
 public class LookupTable3D
 {
 	private static LookupTable3D lookupTable3D;
-	private static String generatedFilesPrefix = "./src/acasx3d/generation/generatedFiles/";
+	public static String generatedFilesPrefix = "/home/xueyi/git/ACASX_3D_Testing/ACASX _3D_Testing/LookupTableFiles/";
 	
 	public int numCStates;
 	public int numUStates;
 
-	public ArrayList<Integer> indexArr=new ArrayList<>();
-	public ArrayList<Double> costArr=new ArrayList<>();
-	public ArrayList<Integer> actionArr=new ArrayList<>();
-	public ArrayList<Double> entryTimeDistributionArr=new ArrayList<>();
+	public ArrayList<Integer> indexArr=new ArrayList<Integer>();
+	public ArrayList<Double> costArr=new ArrayList<Double>();
+	public ArrayList<Integer> actionArr=new ArrayList<Integer>();
+	public ArrayList<Double> entryTimeDistributionArr=new ArrayList<Double>();
 	
 	public BufferedReader indexFileReader = null;
 	public BufferedReader costFileReader = null;

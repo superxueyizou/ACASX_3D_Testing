@@ -44,7 +44,7 @@ public class Configuration
 	{
 		globalConfig = new GlobalConfig();
 		ownshipConfig = new OwnshipConfig();
-		encountersConfig = new HashMap<>();
+		encountersConfig = new HashMap<String,EncounterConfig>();
 	}
 	
 	public void addIntruderConfig(String alias, EncounterConfig encounterConfig)
@@ -67,9 +67,6 @@ public class Configuration
     		str.append(encounterConfig.CAPBearing+",");    
     		str.append(encounterConfig.CAPT+","); 
     	}
-    	str.append(globalConfig.stdDevX+",");
-    	str.append(globalConfig.stdDevY+",");
-    	str.append(globalConfig.stdDevZ+",");
 		return str.toString();
 	}
 }

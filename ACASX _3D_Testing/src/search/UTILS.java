@@ -12,12 +12,19 @@
  *******************************************************************************/
 package search;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.util.List;
+
+import visualization.modeling.SAAModel;
+import visualization.modeling.SimInitializer;
+import ec.EvolutionState;
 
 //import weka.core.Instances;
 //import weka.core.converters.ArffSaver;
@@ -184,6 +191,49 @@ public class UTILS {
         }
     }
     
+    
+    public static void runCSVFile(String fileName, long seed0) throws IOException
+    {
+    	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+    	long startTime = System.currentTimeMillis();			
+		String line;
+		int numLine=0;
+		final int TIMES=100;
+		while( (line= br.readLine())!=null && !line.isEmpty())
+		{
+			line = line.trim();
+//			System.out.println(line);
+			numLine++;
+			
+			int numAccident= 0;	
+			EvolutionarySearch.genomeString2Config(line);	
+	        long seed = seed0;
+			SAAModel simState= new SAAModel(seed, false); 
+			SimInitializer.generateSimulation(simState);
+			if(!MaxAccidentRate.isProper(simState))
+	        {
+	        	continue;
+	        }
+			
+			for(int t=0;t<TIMES; t++)
+	        { 
+				numAccident += MaxAccidentRate.sim(seed, null).numCollisions;
+	    		seed++;
+	        }	
+			
+			double accidentRate=numAccident*1.0/TIMES;
+		}
+		long endTime = System.currentTimeMillis();		
+		System.out.println("Total simulations: "+numLine+", search time: "+ (endTime-startTime)/1000+"s");	
+		br.close();
+		br = null;
+    }
+    
+    public static void main(String[] args) throws IOException
+    {
+    	runCSVFile("/home/xueyi/MatlabWorkSpace/ACASXGlobalSearch/testPoints898946497.csv",898946497 );
+    	//241s, 307, 264,252
+    }
     
     /** takes 2 arguments:
     * - cvsFileName input file

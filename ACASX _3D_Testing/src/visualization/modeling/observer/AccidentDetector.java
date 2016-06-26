@@ -22,7 +22,7 @@ import visualization.modeling.uas.UAS;
  * @author xueyi
  *
  */
-public class CollisionDetector implements Steppable
+public class AccidentDetector implements Steppable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,7 +31,7 @@ public class CollisionDetector implements Steppable
 	
 	private int numCollisions=0;		
 	
-	public CollisionDetector()
+	public AccidentDetector()
 	{	
 	}
 

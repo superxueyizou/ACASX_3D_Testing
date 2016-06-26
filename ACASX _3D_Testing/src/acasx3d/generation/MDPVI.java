@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import acasx3d.LookupTable3D;
+
 
 public class MDPVI
 {
@@ -128,9 +130,9 @@ public class MDPVI
 	
 		try 
         {
-            indexFileWriter = new FileWriter("./src/acasx3d/generation/generatedFiles/indexFile",false);
-            costFileWriter = new FileWriter("./src/acasx3d/generation/generatedFiles/costFile",false);
-            actionFileWriter = new FileWriter("./src/acasx3d/generation/generatedFiles/actionFile",false);
+            indexFileWriter = new FileWriter(LookupTable3D.generatedFilesPrefix+"indexFile",false);
+            costFileWriter = new FileWriter(LookupTable3D.generatedFilesPrefix+"costFile",false);
+            actionFileWriter = new FileWriter(LookupTable3D.generatedFilesPrefix+"actionFile",false);
       
             int index=0;
             for (int i=0; i<numCStates;i++)//T=k=0

@@ -18,7 +18,7 @@ import visualization.configuration.Configuration;
 import visualization.configuration.EncounterConfig;
 import visualization.modeling.encountergenerator.EncounterGenerationFactory;
 import visualization.modeling.encountergenerator.OwnshipGenerator;
-import visualization.modeling.observer.CollisionDetector;
+import visualization.modeling.observer.AccidentDetector;
 import visualization.modeling.observer.ProximityMeasurer;
 import visualization.modeling.observer.RAMonitor;
 import visualization.modeling.uas.UAS;
@@ -44,7 +44,7 @@ public class SimInitializer
 		}		
 
 	    ProximityMeasurer pMeasurer= new ProximityMeasurer();
-	    CollisionDetector aDetector= new CollisionDetector();
+	    AccidentDetector aDetector= new AccidentDetector();
 	    RAMonitor raMonitor = new RAMonitor();
 	    state.observerBag.add(pMeasurer);
 	    state.observerBag.add(aDetector);// index is 1
@@ -52,13 +52,13 @@ public class SimInitializer
 	}
 	
 	
-	public static void generateSimulation(SAAModel state, double[] genes, boolean configGlobal)
+	public static void generateSimulation(SAAModel state, double[] genes)
 	{	
-		Genes2Config(genes, configGlobal);
+		Genes2Config(genes);
 		generateSimulation(state);
 	}
 	
-	public static void Genes2Config(double[] genes, boolean configGlobal)
+	public static void Genes2Config(double[] genes)
 	{
 		config.ownshipConfig.ownshipVy = genes[0];
 		config.ownshipConfig.ownshipGs = genes[1];
@@ -74,21 +74,7 @@ public class SimInitializer
 		encounterConfig.CAPGs= genes[6];
 		encounterConfig.CAPBearing= genes[7];
 		encounterConfig.CAPT= genes[8];
-		encountersConfig.put("intruder"+1, encounterConfig);
-		
-		if(configGlobal)
-		{
-			config.globalConfig.stdDevX = genes[9];
-			config.globalConfig.stdDevY = genes[10];
-			config.globalConfig.stdDevZ = genes[11];
-		}
-		else
-		{
-			config.globalConfig.stdDevX = 3;
-			config.globalConfig.stdDevY = 3;
-			config.globalConfig.stdDevZ = 3;
-		}
-    	
+		encountersConfig.put("intruder"+1, encounterConfig);    	
 	}
 	
 }

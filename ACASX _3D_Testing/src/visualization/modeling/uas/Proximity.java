@@ -14,7 +14,7 @@ package visualization.modeling.uas;
 
 
 import sim.util.Double3D;
-import visualization.modeling.observer.CollisionDetector;
+import visualization.modeling.observer.AccidentDetector;
 
 public class Proximity
 {
@@ -35,7 +35,7 @@ public class Proximity
 		
 	public double toValue()
 	{
-		return Math.max(0,distH-CollisionDetector.thresholdH)+ Math.max(0,distV-CollisionDetector.thresholdV);//Math.sqrt(distH*distH + distV*distV);
+		return Math.max(0,distH-AccidentDetector.thresholdH)+ Math.max(0,distV-AccidentDetector.thresholdV);//Math.sqrt(distH*distH + distV*distV);
 	}
 	public String toString()
 	{

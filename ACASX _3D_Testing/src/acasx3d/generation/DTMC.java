@@ -48,8 +48,8 @@ public class DTMC
 	private State_UCtrl[] uStates= new State_UCtrl[numUStates];
 	
 
-	private ArrayList<ThreeTuple<Double, Double, Double>> sigmaPoints1 = new ArrayList<>();
-	private ArrayList<ThreeTuple<Double, Double, Double>> sigmaPoints2 = new ArrayList<>();
+	private ArrayList<ThreeTuple<Double, Double, Double>> sigmaPoints1 = new ArrayList<ThreeTuple<Double, Double, Double>>();
+	private ArrayList<ThreeTuple<Double, Double, Double>> sigmaPoints2 = new ArrayList<ThreeTuple<Double, Double, Double>>();
 	
 	public DTMC() 
 	{		
@@ -65,17 +65,17 @@ public class DTMC
 			}
 		}
 		
-		sigmaPoints1.add(new ThreeTuple<>(0.0,0.0,1.0/3));
-		sigmaPoints1.add(new ThreeTuple<>(Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,0.0,1.0/6));
-		sigmaPoints1.add(new ThreeTuple<>(-Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,0.0,1.0/6));
-		sigmaPoints1.add(new ThreeTuple<>(0.0,Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,1.0/6));
-		sigmaPoints1.add(new ThreeTuple<>(0.0,-Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,1.0/6));
+		sigmaPoints1.add(new ThreeTuple<Double, Double, Double>(0.0,0.0,1.0/3));
+		sigmaPoints1.add(new ThreeTuple<Double, Double, Double>(Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,0.0,1.0/6));
+		sigmaPoints1.add(new ThreeTuple<Double, Double, Double>(-Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,0.0,1.0/6));
+		sigmaPoints1.add(new ThreeTuple<Double, Double, Double>(0.0,Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,1.0/6));
+		sigmaPoints1.add(new ThreeTuple<Double, Double, Double>(0.0,-Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,1.0/6));
 		
-		sigmaPoints2.add(new ThreeTuple<>(0.0,0.0,1.0/3));
-		sigmaPoints2.add(new ThreeTuple<>(Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,0.0,1.0/6));
-		sigmaPoints2.add(new ThreeTuple<>(-Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,0.0,1.0/6));
-		sigmaPoints2.add(new ThreeTuple<>(0.0,Math.sqrt(3.0)*2*WHITE_NOISE_SDEV_Angle,1.0/6));
-		sigmaPoints2.add(new ThreeTuple<>(0.0,-Math.sqrt(3.0)*2*WHITE_NOISE_SDEV_Angle,1.0/6));
+		sigmaPoints2.add(new ThreeTuple<Double, Double, Double>(0.0,0.0,1.0/3));
+		sigmaPoints2.add(new ThreeTuple<Double, Double, Double>(Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,0.0,1.0/6));
+		sigmaPoints2.add(new ThreeTuple<Double, Double, Double>(-Math.sqrt(3.0)*2*WHITE_NOISE_SDEV,0.0,1.0/6));
+		sigmaPoints2.add(new ThreeTuple<Double, Double, Double>(0.0,Math.sqrt(3.0)*2*WHITE_NOISE_SDEV_Angle,1.0/6));
+		sigmaPoints2.add(new ThreeTuple<Double, Double, Double>(0.0,-Math.sqrt(3.0)*2*WHITE_NOISE_SDEV_Angle,1.0/6));
 	}
 
 	/**
@@ -179,7 +179,7 @@ public class DTMC
 	{
 		Map<State_UCtrl, Double> TransitionStatesAndProbs = new LinkedHashMap<State_UCtrl,Double>();
 
-		ArrayList<AbstractMap.SimpleEntry<State_UCtrl, Double>> nextStateMapProbabilities = new ArrayList<>();
+		ArrayList<AbstractMap.SimpleEntry<State_UCtrl, Double>> nextStateMapProbabilities = new ArrayList<SimpleEntry<State_UCtrl, Double>>();
 		
 		for(ThreeTuple<Double, Double, Double> sigmaPoint : sigmaPoints2)
 		{

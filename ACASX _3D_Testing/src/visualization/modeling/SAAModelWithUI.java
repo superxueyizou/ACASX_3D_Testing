@@ -183,14 +183,8 @@ public class SAAModelWithUI extends GUIState
 			// for finding accidents
 			double[] genes=((DoubleVectorIndividual)inds[currentInd]).genome;
 			System.out.println("individual"+currentInd+": "+inds[currentInd].genotypeToStringForHumans());			
-			SimInitializer.generateSimulation((SAAModel)state, genes, false );	
-			currentInd++;
-			
-			//for finding maximum gap
-//			double[] genes=((DoubleVectorIndividual)inds[currentInd/2]).genome;
-//			System.out.println("individual"+currentInd/2+": "+inds[currentInd/2].genotypeToStringForHumans());			
-//			SimInitializer.generateSimulation((SAAModel)state, genes, (currentInd%2 !=0) );	
-//			currentInd++;
+			SimInitializer.generateSimulation((SAAModel)state, genes);	
+			currentInd++;			
 		}
 		else
 		{

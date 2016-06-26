@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import acasx3d.LookupTable3D;
+
 
 public class DTMCVI
 {
@@ -86,7 +88,7 @@ public class DTMCVI
 		FileWriter entryTimeDistributionFileWriter = null;	
 		try 
         {
-            entryTimeDistributionFileWriter = new FileWriter("./src/acasx3d/generation/generatedFiles/"+entryTimeDistributionFileName,false);
+            entryTimeDistributionFileWriter = new FileWriter(LookupTable3D.generatedFilesPrefix+entryTimeDistributionFileName,false);
 
             for(int k=0; k<=T;k++ )
             {

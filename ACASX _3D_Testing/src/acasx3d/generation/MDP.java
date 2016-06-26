@@ -46,8 +46,8 @@ public class MDP
 	private State_Ctrl[] cStates= new State_Ctrl[numCStates];
 	
 	public final static double WHITE_NOISE_SDEV=3.0;
-	private ArrayList<ThreeTuple<Double, Double, Double>> sigmaPointsA = new ArrayList<>();
-	private ArrayList<ThreeTuple<Double, Double, Double>> sigmaPointsB = new ArrayList<>();
+	private ArrayList<ThreeTuple<Double, Double, Double>> sigmaPointsA = new ArrayList<ThreeTuple<Double, Double, Double>>();
+	private ArrayList<ThreeTuple<Double, Double, Double>> sigmaPointsB = new ArrayList<ThreeTuple<Double, Double, Double>>();
 
 	
 	public MDP() 
@@ -67,15 +67,15 @@ public class MDP
 			}
 		}
 				
-		sigmaPointsA.add(new ThreeTuple<>(0.0,0.0,1.0/2));
-		sigmaPointsA.add(new ThreeTuple<>(0.0,Math.sqrt(2.0)*WHITE_NOISE_SDEV,1.0/4));
-		sigmaPointsA.add(new ThreeTuple<>(0.0,-Math.sqrt(2.0)*WHITE_NOISE_SDEV,1.0/4));
+		sigmaPointsA.add(new ThreeTuple<Double, Double, Double>(0.0,0.0,1.0/2));
+		sigmaPointsA.add(new ThreeTuple<Double, Double, Double>(0.0,Math.sqrt(2.0)*WHITE_NOISE_SDEV,1.0/4));
+		sigmaPointsA.add(new ThreeTuple<Double, Double, Double>(0.0,-Math.sqrt(2.0)*WHITE_NOISE_SDEV,1.0/4));
 			
-		sigmaPointsB.add(new ThreeTuple<>(0.0,0.0,1.0/3));
-		sigmaPointsB.add(new ThreeTuple<>(Math.sqrt(3.0)*WHITE_NOISE_SDEV,0.0,1.0/6));
-		sigmaPointsB.add(new ThreeTuple<>(-Math.sqrt(3.0)*WHITE_NOISE_SDEV,0.0,1.0/6));
-		sigmaPointsB.add(new ThreeTuple<>(0.0,Math.sqrt(3.0)*WHITE_NOISE_SDEV,1.0/6));
-		sigmaPointsB.add(new ThreeTuple<>(0.0,-Math.sqrt(3.0)*WHITE_NOISE_SDEV,1.0/6));
+		sigmaPointsB.add(new ThreeTuple<Double, Double, Double>(0.0,0.0,1.0/3));
+		sigmaPointsB.add(new ThreeTuple<Double, Double, Double>(Math.sqrt(3.0)*WHITE_NOISE_SDEV,0.0,1.0/6));
+		sigmaPointsB.add(new ThreeTuple<Double, Double, Double>(-Math.sqrt(3.0)*WHITE_NOISE_SDEV,0.0,1.0/6));
+		sigmaPointsB.add(new ThreeTuple<Double, Double, Double>(0.0,Math.sqrt(3.0)*WHITE_NOISE_SDEV,1.0/6));
+		sigmaPointsB.add(new ThreeTuple<Double, Double, Double>(0.0,-Math.sqrt(3.0)*WHITE_NOISE_SDEV,1.0/6));
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class MDP
 
 		double targetV=Utils.getActionV(actionCode);
 		double accel=Utils.getActionA(actionCode);
-		ArrayList<AbstractMap.SimpleEntry<State_Ctrl, Double>> nextStateMapProbabilities = new ArrayList<>();
+		ArrayList<AbstractMap.SimpleEntry<State_Ctrl, Double>> nextStateMapProbabilities = new ArrayList<SimpleEntry<State_Ctrl, Double>>();
 		
 		if( (accel>0 && targetV>cstate.getoVy() && cstate.getoVy()<UPPER_VY)
 				|| (accel<0 && targetV<cstate.getoVy() && cstate.getoVy()>-UPPER_VY))

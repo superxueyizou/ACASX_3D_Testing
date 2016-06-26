@@ -128,7 +128,7 @@ public class ACASX3D_SingleThreat
 		double thetaRes=DTMC.thetaRes;
 		
 		ArrayList<AbstractMap.SimpleEntry<Integer, Double>> entryTimeMapProbs = new ArrayList<AbstractMap.SimpleEntry<Integer, Double>>();
-		Map<Integer, Double> entryTimeDistribution = new TreeMap<>();// must be a sorted map
+		Map<Integer, Double> entryTimeDistribution = new TreeMap<Integer, Double>();// must be a sorted map
 	
 		int rIdxL = (int)Math.floor(r/rRes);
 		int rvIdxL = (int)Math.floor(rv/rvRes);
@@ -191,7 +191,7 @@ public class ACASX3D_SingleThreat
 		assert (Math.abs(iVy)<=MDP.UPPER_VY);
 		assert (lastRA>=0);
 		
-		Map<Integer, Double> qValuesMap = new TreeMap<>();
+		Map<Integer, Double> qValuesMap = new TreeMap<Integer, Double>();
 		ArrayList<AbstractMap.SimpleEntry<Integer, Double>> actionMapValues = new ArrayList<AbstractMap.SimpleEntry<Integer, Double>>();
 
 		int hIdxL = (int)Math.floor(h/hRes);

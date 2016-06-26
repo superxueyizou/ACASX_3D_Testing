@@ -39,8 +39,8 @@ public class FileCheckers
 		long endTime;	
 		BufferedReader indexFileReader1=null;
 		BufferedReader indexFileReader2=null;
-		ArrayList<Integer>	indexArr1= new ArrayList<>();
-		ArrayList<Integer>	indexArr2= new ArrayList<>();
+		ArrayList<Integer>	indexArr1= new ArrayList<Integer>();
+		ArrayList<Integer>	indexArr2= new ArrayList<Integer>();
 		try 
         {
 			indexFileReader1 = new BufferedReader(new InputStreamReader(new FileInputStream(indexFile1)));			
@@ -112,8 +112,8 @@ public class FileCheckers
 		long endTime ;
 		BufferedReader costFileReader1=null;
 		BufferedReader costFileReader2=null;
-		ArrayList<Double>	costArr1= new ArrayList<>();
-		ArrayList<Double>	costArr2= new ArrayList<>();
+		ArrayList<Double>	costArr1= new ArrayList<Double>();
+		ArrayList<Double>	costArr2= new ArrayList<Double>();
 		try 
         {
 			costFileReader1 = new BufferedReader(new InputStreamReader(new FileInputStream(costFile1)));			
@@ -186,8 +186,8 @@ public class FileCheckers
 		long endTime;
 		BufferedReader actionFileReader1=null;
 		BufferedReader actionFileReader2=null;
-		ArrayList<Integer>	actionArr1= new ArrayList<>();
-		ArrayList<Integer>	actionArr2= new ArrayList<>();
+		ArrayList<Integer>	actionArr1= new ArrayList<Integer>();
+		ArrayList<Integer>	actionArr2= new ArrayList<Integer>();
 		try 
         {
 			actionFileReader1 = new BufferedReader(new InputStreamReader(new FileInputStream(actionFile1)));			
@@ -259,8 +259,8 @@ public class FileCheckers
 		long endTime ;
 		BufferedReader entryTimeDistributionFileReader1=null;
 		BufferedReader entryTimeDistributionFileReader2=null;
-		ArrayList<Double> entryTimeDistributionArr1= new ArrayList<>();
-		ArrayList<Double> entryTimeDistributionArr2= new ArrayList<>();
+		ArrayList<Double> entryTimeDistributionArr1= new ArrayList<Double>();
+		ArrayList<Double> entryTimeDistributionArr2= new ArrayList<Double>();
 		try 
         {
 			entryTimeDistributionFileReader1 = new BufferedReader(new InputStreamReader(new FileInputStream(entryTimeDistributionFile1)));			

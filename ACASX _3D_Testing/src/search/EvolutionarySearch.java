@@ -10,9 +10,7 @@
  *  |MISUSING THIS SOFTWARE.
  *  ------------------------------------------------------------------------
  *******************************************************************************/
-/**
- * 
- */
+
 package search;
 
 import java.io.File;
@@ -38,9 +36,9 @@ import ec.util.ParameterDatabase;
  */
 public class EvolutionarySearch
 {	
-	public static String problemName="MaxAccident";//"MaxGap" , "MaxAccident"
+	public static String problemName="MaxAccidentRate";
 	public static File parameterFile= new File("./src/search/"+problemName+".params");	
-	protected static List<String> simDataSet = new ArrayList<>(200);
+	protected static List<String> simDataSet = new ArrayList<String>(200);
 	
 	public static void goSearch() throws Exception
 	{	
@@ -80,9 +78,9 @@ public class EvolutionarySearch
 		evaluatedState.startFresh();
 		int result=EvolutionState.R_NOTDONE;	
 		
-		String title = null;//"SelfVy,SelfGs,CAPY,CAPR,CAPTheta,CAPVy,CAPGS,CAPBearing,CAPT,stdX, stdY, stdZ"+"\n";
+		String title = null;//"SelfVy,SelfGs,CAPY,CAPR,CAPTheta,CAPVy,CAPGS,CAPBearing,CAPT"+"\n";
 		boolean isAppending = false;
-		String logFileName = problemName+"_ES_" +seed0+ "_Dataset.csv";
+		String logFileName = "./DataSet/"+problemName+"_ES_" +seed0+ "_Dataset.csv";
 //		String logFileName = "AllInOne_Dataset.csv";
 		
 		int i=0;		
@@ -98,6 +96,8 @@ public class EvolutionarySearch
 			}
 			++i;
 		}
+		UTILS.writeDataSet2CSV(logFileName, title, simDataSet,isAppending);
+		simDataSet.clear();
 		return evaluatedState;
 	}
 	
@@ -124,7 +124,7 @@ public class EvolutionarySearch
 	{
 //		goSearch();
 		
-		long[] seeds = new long[]{567672542, 898946497, 679463479,884185791, 588764257};//
+		long[] seeds = new long[]{567672542, 898946497, 679463479,884185791, 588764257};
 		for (long seed:seeds)
 		{
 			goSearch(seed);
@@ -136,11 +136,10 @@ public class EvolutionarySearch
 	{
 		genomeString = genomeString.trim();
 		String[] pArr= genomeString.split("\\s+|,");
-		int len = pArr.length;
-		for(String s:pArr)
-		{
-			System.out.println(s);
-		}
+//		for(String s:pArr)
+//		{
+//			System.out.println(s);
+//		}
 		
 		Configuration config = Configuration.getInstance();
 		
@@ -158,19 +157,6 @@ public class EvolutionarySearch
 		encounterConfig.CAPBearing= Double.parseDouble(pArr[7]);
 		encounterConfig.CAPT= Double.parseDouble(pArr[8]);
 		config.encountersConfig.put("intruder"+1, encounterConfig); 
-		
-		if(len>9)
-		{
-			config.globalConfig.stdDevX = Double.parseDouble(pArr[9]);
-			config.globalConfig.stdDevY = Double.parseDouble(pArr[10]);
-			config.globalConfig.stdDevZ = Double.parseDouble(pArr[11]);
-		}
-		else
-		{
-			config.globalConfig.stdDevX = 3;
-			config.globalConfig.stdDevY = 3;
-			config.globalConfig.stdDevZ = 3;
-		}
 	}
 			
 }

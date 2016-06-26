@@ -19,6 +19,9 @@ import visualization.configuration.Configuration;
 import visualization.configuration.GlobalConfig;
 import visualization.modeling.SAAModel;
 import visualization.modeling.SimInitializer;
+import visualization.modeling.observer.AccidentDetector;
+import visualization.modeling.observer.SimulationReturnType;
+import visualization.modeling.uas.Proximity;
 import visualization.modeling.uas.UAS;
 import ec.EvolutionState;
 import ec.Individual;
@@ -31,7 +34,7 @@ import ec.vector.DoubleVectorIndividual;
  * @author Xueyi Zou
  *
  */
-public class MaxAccident extends Problem implements SimpleProblemForm 
+public class MaxAccidentRate extends Problem implements SimpleProblemForm 
 {
 	private static final long serialVersionUID = 1L;
 
@@ -47,33 +50,34 @@ public class MaxAccident extends Problem implements SimpleProblemForm
         double[] genes = ind2.genome; 
    
         int times =100;   	
-        double totalCost= 0;	
-        boolean configGlobal=false;
+        double totalFitness= 0;	
+        int numAccidents=0;
 		
 		long seed = 785945568;
 		SAAModel simState= new SAAModel(seed, false); 
-		SimInitializer.generateSimulation(simState, genes, configGlobal);
+		SimInitializer.generateSimulation(simState, genes);
 		if(!isProper(simState))
         {
 			((SimpleFitness)ind2.fitness).setFitness(   state,            
 		            0,/// ...the fitness...
 		            false);///... is the individual ideal?  Indicate here...
 
-			EvolutionarySearch.simDataSet.add(Configuration.getInstance().toString()+0);	
+			EvolutionarySearch.simDataSet.add(Configuration.getInstance().toString()+0+","+0.0);	
 	        ind2.evaluated = true;
         	return;
         }
 		
 		for(int t=0;t<times; t++)
         { 
-			totalCost += 10000.0/(1.0+sim(seed, genes, configGlobal));
+			SimulationReturnType result = sim(seed, genes);
+			totalFitness += 10000.0/(1.0+result.miniProximity.toValue());
+			numAccidents += result.numCollisions;
     		seed++;
         }
-        
-		double aveCost = totalCost/times;
 		
-		float fitness= (float) aveCost;      
-		EvolutionarySearch.simDataSet.add(Configuration.getInstance().toString()+fitness);	
+		float fitness= (float) (totalFitness/times);    
+		double accidentRate = numAccidents*1.0/times;
+		EvolutionarySearch.simDataSet.add(Configuration.getInstance().toString()+fitness+","+accidentRate);	
         
         if (!(ind2.fitness instanceof SimpleFitness))
             state.output.fatal("Whoa!  It's not a SimpleFitness!!!",null);
@@ -86,12 +90,13 @@ public class MaxAccident extends Problem implements SimpleProblemForm
 
 	}
 	
-	public static double sim(long seed, double[] genes, boolean configGlobal)
+
+	public static SimulationReturnType sim(long seed, double[] genes)
 	{
 		SAAModel simState= new SAAModel(seed, false); 
 		if(genes!=null)
 		{
-			SimInitializer.generateSimulation(simState, genes, configGlobal);
+			SimInitializer.generateSimulation(simState, genes);
 		}
 		else
 		{
@@ -107,9 +112,10 @@ public class MaxAccident extends Problem implements SimpleProblemForm
 			}
 		} while(simState.schedule.getSteps()<= 60);	
  		
-		double miniProximity = ((UAS)simState.uasBag.get(0)).getMinProximity().toValue();	
+		Proximity miniProximity = ((UAS)simState.uasBag.get(0)).getMinProximity();	
+		int numCollisions = ((AccidentDetector)simState.observerBag.get(1)).getNumCollisions();
 		simState.finish();
-		return miniProximity;
+		return new SimulationReturnType(miniProximity, numCollisions);
 	}
 	
 	public static boolean isProper(SAAModel simState)

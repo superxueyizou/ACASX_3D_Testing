@@ -64,7 +64,7 @@ public class ACASX3D_MultiThreats
 	
 	public int execute()
 	{
-		Map<Integer, Double> qValuesMap = new TreeMap<>();
+		Map<Integer, Double> qValuesMap = new TreeMap<Integer, Double>();
 		for(int i=0; i<intrudersLocs.length; ++i)
 		{
 			Double2D vctDistance = new Double2D(intrudersLocs[i].x-ownshipLoc.x, intrudersLocs[i].z-ownshipLoc.z);
@@ -141,7 +141,7 @@ public class ACASX3D_MultiThreats
 		double thetaRes=DTMC.thetaRes;
 		
 		ArrayList<AbstractMap.SimpleEntry<Integer, Double>> entryTimeMapProbs = new ArrayList<AbstractMap.SimpleEntry<Integer, Double>>();
-		Map<Integer, Double> entryTimeDistribution = new TreeMap<>();// must be a sorted map
+		Map<Integer, Double> entryTimeDistribution = new TreeMap<Integer, Double>();// must be a sorted map
 
 		assert (r<=DTMC.UPPER_R);
 		assert (rv<=DTMC.UPPER_RV);
@@ -207,7 +207,7 @@ public class ACASX3D_MultiThreats
 		assert (Math.abs(iVy)<=MDP.UPPER_VY);
 		assert (lastRA>=0);
 		
-		Map<Integer, Double> qValuesMap = new TreeMap<>();
+		Map<Integer, Double> qValuesMap = new TreeMap<Integer, Double>();
 		ArrayList<AbstractMap.SimpleEntry<Integer, Double>> actionMapValues = new ArrayList<AbstractMap.SimpleEntry<Integer, Double>>();
 
 		int hIdxL = (int)Math.floor(h/hRes);

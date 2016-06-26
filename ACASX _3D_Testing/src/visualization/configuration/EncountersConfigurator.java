@@ -34,7 +34,7 @@ public class EncountersConfigurator extends JPanel
 	{
 		setLayout(null);
 		
-		final DefaultListModel<String> listModel= new DefaultListModel<>();
+		final DefaultListModel<String> listModel= new DefaultListModel<String>();
 		for(String alias:config.encountersConfig.keySet())
 		{
 			listModel.addElement(alias);
