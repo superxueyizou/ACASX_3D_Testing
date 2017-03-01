@@ -60,20 +60,24 @@ public class SimInitializer
 	
 	public static void Genes2Config(double[] genes)
 	{
-		config.ownshipConfig.ownshipVy = genes[0];
-		config.ownshipConfig.ownshipGs = genes[1];
+		config.ownshipConfig.ownshipGs = genes[0];
+		config.ownshipConfig.ownshipVy = genes[1];
+
 				
 		HashMap<String,EncounterConfig> encountersConfig = config.encountersConfig;
 		encountersConfig.clear();
 
 		EncounterConfig encounterConfig = new EncounterConfig();
-		encounterConfig.CAPY= genes[2];
+		encounterConfig.CAPT= genes[2];
+
 		encounterConfig.CAPR= genes[3];
 		encounterConfig.CAPTheta= genes[4];
-		encounterConfig.CAPVy= genes[5];
+		encounterConfig.CAPY= genes[5];
+
 		encounterConfig.CAPGs= genes[6];
 		encounterConfig.CAPBearing= genes[7];
-		encounterConfig.CAPT= genes[8];
+		encounterConfig.CAPVy= genes[8];
+
 		encountersConfig.put("intruder"+1, encounterConfig);    	
 	}
 	

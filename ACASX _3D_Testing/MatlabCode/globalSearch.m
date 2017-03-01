@@ -3,7 +3,8 @@
 %for ACAS XU
 %------------------------------------------------------%
 clear all; clc;
-javaaddpath('/home/xueyi/Desktop/ACASX_3D_Testing.jar');
+%pwd: /home/xueyi/EclipseWorkSpace/Java/ACASX_3D_Testing/ACASX _3D_Testing
+javaaddpath('./MatlabCode/ACASX_3D_Testing.jar');
 import ACASX_3D_Testing.*
 
 seeds = [567672542, 898946497, 679463479,884185791, 588764257];
@@ -17,15 +18,16 @@ for i =1:5
     %search.AccidentRate.main('785945568')
 
     % 1. Establish bounds for variables
-    bounds = [-67, 58;
-              169, 304;
-              -100,100;
+    bounds = [169, 304;
+              -67, 58;
+              20, 30;              
               0,   500;
               -180,180;
-              -67, 58;
+              -100,100;              
               169, 304;
               -180,180;
-              20, 30];
+              -67, 58
+              ];
     % 2. Send options to Direct
     %    We tell DIRECT that the globalmin = 0
     %    It will stop within 2% of solution
@@ -59,11 +61,11 @@ for i =1:5
     title('Iteration Statistics for maxAccidentRate');
     hold off
     
-    filename = strcat('./ACASXGlobalSearch/testPoints', num2str(seed), '.mat'); 
+    filename = strcat('./DataSet/Direct/testPoints', num2str(seed), '.mat'); 
     save(filename, 'testPoints')
-    filename = strcat('./ACASXGlobalSearch/testPoints', num2str(seed), '.csv'); 
+    filename = strcat('./DataSet/Direct/testPoints', num2str(seed), '.csv'); 
     csvwrite(filename,testPoints)
-    filename = strcat('./ACASXGlobalSearch/hist ', num2str(seed), '.mat'); 
+    filename = strcat('./DataSet/Direct/hist ', num2str(seed), '.mat'); 
     save(filename, 'hist')
     
 end

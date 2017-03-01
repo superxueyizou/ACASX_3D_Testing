@@ -2,7 +2,7 @@
 # Licensed under the Academic Free License version 3.0
 # See the file "LICENSE" for more information
 
-parent.0		= /home/xueyi/EclipseWorkSpace/Java/ECJ/src/ec/simple/simple.params
+parent.0		= /home/xueyi/EclipseWorkSpace/Java/ECJ/ECJ/src/ec/simple/simple.params
 
 #seed.0 = 567672542
 #seed.0 = 898946497
@@ -20,34 +20,36 @@ pop.subpop.0.species.fitness 	= ec.simple.SimpleFitness
 # the size of simulation parameters
 pop.subpop.0.species.genome-size	=9
 
-#self config Vy
-pop.subpop.0.species.min-gene.0 = -67
-pop.subpop.0.species.max-gene.0 = 58
 #self config Gs
-pop.subpop.0.species.min-gene.1 =169
-pop.subpop.0.species.max-gene.1 =304
-	
-# intruder CAPY
-pop.subpop.0.species.min-gene.2 = -100 
-pop.subpop.0.species.max-gene.2 = 100
+pop.subpop.0.species.min-gene.0 =169
+pop.subpop.0.species.max-gene.0 =304
+#self config Vy
+pop.subpop.0.species.min-gene.1 = -67
+pop.subpop.0.species.max-gene.1 = 58
+
+# intruder CAPT
+pop.subpop.0.species.min-gene.2 = 20
+pop.subpop.0.species.max-gene.2 = 30
 # intruder CAPR  
 pop.subpop.0.species.min-gene.3 = 0 
 pop.subpop.0.species.max-gene.3 =500
 # intruder CAPTheta
 pop.subpop.0.species.min-gene.4 = -180 
 pop.subpop.0.species.max-gene.4 = 180 
-# intruder CAPVy
-pop.subpop.0.species.min-gene.5 =-67
-pop.subpop.0.species.max-gene.5 =58
+# intruder CAPY
+pop.subpop.0.species.min-gene.5 = -100 
+pop.subpop.0.species.max-gene.5 = 100
+
 # intruder CAPGs
 pop.subpop.0.species.min-gene.6 = 169 
 pop.subpop.0.species.max-gene.6 = 304
 # intruder CAPBearing
 pop.subpop.0.species.min-gene.7 = -180
 pop.subpop.0.species.max-gene.7 = 180
-# intruder CAPT
-pop.subpop.0.species.min-gene.8 = 20
-pop.subpop.0.species.max-gene.8 = 30
+# intruder CAPVy
+pop.subpop.0.species.min-gene.8 =-67
+pop.subpop.0.species.max-gene.8 =58
+
 
 pop.subpop.0.species.min-gene = -180
 pop.subpop.0.species.max-gene = 500

@@ -12,14 +12,13 @@
  *******************************************************************************/
 package search;
 
-import org.apache.commons.math3.analysis.MultivariateFunction;
-
 import visualization.configuration.Configuration;
 import visualization.configuration.EncounterConfig;
 import visualization.modeling.SAAModel;
 import visualization.modeling.SimInitializer;
 
-public class AccidentRateEvaluator implements MultivariateFunction{
+public class AccidentRateEvaluator 
+{
 		
 	private int TIMES =100; 
 	private long seed0 =785945568;
@@ -54,19 +53,23 @@ public class AccidentRateEvaluator implements MultivariateFunction{
 	{		
 		Configuration config = Configuration.getInstance();
 		
-		config.ownshipConfig.ownshipVy = x[0];
-		config.ownshipConfig.ownshipGs = x[1];
+		config.ownshipConfig.ownshipGs = x[0];
+		config.ownshipConfig.ownshipVy = x[1];
+
 				
 		config.encountersConfig.clear();
 	
 		EncounterConfig encounterConfig = new EncounterConfig();
-		encounterConfig.CAPY= x[2];
+		encounterConfig.CAPT= x[2];
+
 		encounterConfig.CAPR= x[3];
 		encounterConfig.CAPTheta= x[4];
-		encounterConfig.CAPVy= x[5];
+		encounterConfig.CAPY= x[5];
+
 		encounterConfig.CAPGs= x[6];
 		encounterConfig.CAPBearing= x[7];
-		encounterConfig.CAPT= x[8];
+		encounterConfig.CAPVy= x[8];
+
 		config.encountersConfig.put("intruder"+1, encounterConfig); 
 	}
 

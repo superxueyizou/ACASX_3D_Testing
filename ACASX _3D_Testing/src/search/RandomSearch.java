@@ -41,33 +41,38 @@ public class RandomSearch {
 	
 	static int numSamplePoints=dBase.getInt(new Parameter("pop.subpop.0.size"), null)*dBase.getInt(new Parameter("generations"), null);
 
-	static double minSelfVy = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.0"), null);
-	static double maxSelfVy = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.0"), null);
-	static double minSelfGs = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.1"), null);
-	static double maxSelfGs = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.1"), null);
+
+	static double minSelfGs = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.0"), null);
+	static double maxSelfGs = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.0"), null);
+	static double minSelfVy = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.1"), null);
+	static double maxSelfVy = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.1"), null);
 	
-	static double minCAPY = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.2"), null);
-	static double maxCAPY = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.2"), null);
+	static double minCAPT = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.2"), null);
+	static double maxCAPT = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.2"), null);	
+
 	static double minCAPR = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.3"), null);
 	static double maxCAPR = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.3"), null);
 	static double minCAPTheta = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.4"), null);
 	static double maxCAPTheta = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.4"), null);
-	static double minCAPVy = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.5"), null);
-	static double maxCAPVy = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.5"), null);
+	static double minCAPY = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.5"), null);
+	static double maxCAPY = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.5"), null);
+	
+
 	static double minCAPGs = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.6"), null);
 	static double maxCAPGs = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.6"), null);
 	static double minCAPBearing = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.7"), null);
 	static double maxCAPBearing = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.7"), null);
-	static double minCAPT = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.8"), null);
-	static double maxCAPT = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.8"), null);
+	static double minCAPVy = dBase.getDouble(new Parameter("pop.subpop.0.species.min-gene.8"), null);
+	static double maxCAPVy = dBase.getDouble(new Parameter("pop.subpop.0.species.max-gene.8"), null);
+
 	
 	static int TIMES =100; 
 	
 	public static void searchMaxAccident(long seed0) 
 	{			
 		List<String> simDataSet = new ArrayList<String>(200);
-		String csvFileName = "./DataSet/MaxAccident_RDM_" +seed0+ "_Dataset.csv";
-		String title = null;//"SelfVy,SelfGs,CAPY,CAPR,CAPTheta,CAPVy,CAPGS,CAPBearing,CAPT"+"\n";
+		String csvFileName = "./DataSet/RDM/MaxAccident_RDM_" +seed0+ "_Dataset.csv";
+		String title = "SelfGs,SelfVy,CAPT,CAPR,CAPTheta,CAPY,CAPGs,CAPBearing,CAPVy,AccidentRate"+"\n";
 		boolean isAppending = false;
 	
 		int sampleCount=0;
@@ -126,19 +131,23 @@ public class RandomSearch {
 		
 		Configuration config = Configuration.getInstance();
 		
-		config.ownshipConfig.ownshipVy = minSelfVy +rdn.nextDouble(true, true)*(maxSelfVy-minSelfVy);
 		config.ownshipConfig.ownshipGs = minSelfGs +rdn.nextDouble(true, true)*(maxSelfGs-minSelfGs);
+		config.ownshipConfig.ownshipVy = minSelfVy +rdn.nextDouble(true, true)*(maxSelfVy-minSelfVy);
+
 				
 		config.encountersConfig.clear();
 	
 		EncounterConfig encounterConfig = new EncounterConfig();
-		encounterConfig.CAPY= minCAPY +rdn.nextDouble(true, true)*(maxCAPY-minCAPY);
+		encounterConfig.CAPT= minCAPT +rdn.nextDouble(true, true)*(maxCAPT-minCAPT);
+
 		encounterConfig.CAPR= minCAPR +rdn.nextDouble(true, true)*(maxCAPR-minCAPR);
 		encounterConfig.CAPTheta= minCAPTheta +rdn.nextDouble(true, true)*(maxCAPTheta-minCAPTheta);
-		encounterConfig.CAPVy= minCAPVy +rdn.nextDouble(true, true)*(maxCAPVy-minCAPVy);
-		encounterConfig.CAPGs= minCAPGs +rdn.nextDouble(true, true)*(maxCAPGs-minCAPGs);
+		encounterConfig.CAPY= minCAPY +rdn.nextDouble(true, true)*(maxCAPY-minCAPY);
+
+		encounterConfig.CAPGs= minCAPGs +rdn.nextDouble(true, true)*(maxCAPGs-minCAPGs);		
 		encounterConfig.CAPBearing= minCAPBearing +rdn.nextDouble(true, true)*(maxCAPBearing-minCAPBearing);
-		encounterConfig.CAPT= minCAPT +rdn.nextDouble(true, true)*(maxCAPT-minCAPT);
+		encounterConfig.CAPVy= minCAPVy +rdn.nextDouble(true, true)*(maxCAPVy-minCAPVy);
+
 		config.encountersConfig.put("intruder"+1, encounterConfig); 
 	}	
 

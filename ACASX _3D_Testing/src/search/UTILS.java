@@ -24,11 +24,6 @@ import java.util.List;
 
 import visualization.modeling.SAAModel;
 import visualization.modeling.SimInitializer;
-import ec.EvolutionState;
-
-//import weka.core.Instances;
-//import weka.core.converters.ArffSaver;
-//import weka.core.converters.CSVLoader;
 
 
 public class UTILS {
@@ -101,10 +96,10 @@ public class UTILS {
     
 
 	 /**
-     * 把数据集按一定的格式写到csv文件中
-     * @param fileName  csv文件完整路径
-     * @param title     csv文件抬头行
-     * @param dataSet   数据集合
+     * write data to csv file
+     * @param fileName 
+     * @param title     csv file title/head
+     * @param dataSet  
      */
     public static void writeDataSet2CSV(String fileName, String title, List<String> dataSet, boolean isAppending) 
     {
@@ -234,24 +229,5 @@ public class UTILS {
     	runCSVFile("/home/xueyi/MatlabWorkSpace/ACASXGlobalSearch/testPoints898946497.csv",898946497 );
     	//241s, 307, 264,252
     }
-    
-    /** takes 2 arguments:
-    * - cvsFileName input file
-    * - arffFileName output file
-    */
-//	public static void CSV2Arff (String cvsFileName, String arffFileName) throws Exception 
-//	{
-//	    // load CSV
-//	    CSVLoader loader = new CSVLoader();
-//	    loader.setSource(new File(cvsFileName));
-//	    Instances data = loader.getDataSet();
-//	 
-//	    // save ARFF
-//	    ArffSaver saver = new ArffSaver();
-//	    saver.setInstances(data);
-//	    saver.setFile(new File(arffFileName));
-//	    saver.setDestination(new File(arffFileName));
-//	    saver.writeBatch();
-//	}
     
 }

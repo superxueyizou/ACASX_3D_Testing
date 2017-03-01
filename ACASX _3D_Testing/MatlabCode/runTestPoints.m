@@ -1,5 +1,5 @@
 clear all; clc;
-javaaddpath('/home/xueyi/Desktop/ACASX_3D_Testing.jar');
+javaaddpath('./MatlabCode/ACASX_3D_Testing.jar');
 import ACASX_3D_Testing.*
 global AR;
 load testPoints898946497

@@ -55,17 +55,21 @@ public class Configuration
 	public String toString()
 	{
 		StringBuilder str = new StringBuilder();
-    	str.append(ownshipConfig.ownshipVy+",");
     	str.append(ownshipConfig.ownshipGs+",");
+    	str.append(ownshipConfig.ownshipVy+",");
+
     	for (EncounterConfig encounterConfig: encountersConfig.values() )
     	{
-    		str.append(encounterConfig.CAPY+",");
+    		str.append(encounterConfig.CAPT+","); 
+
     		str.append(encounterConfig.CAPR+",");
     		str.append(encounterConfig.CAPTheta+",");
-    		str.append(encounterConfig.CAPVy+",");
+    		str.append(encounterConfig.CAPY+",");
+
     		str.append(encounterConfig.CAPGs+",");
     		str.append(encounterConfig.CAPBearing+",");    
-    		str.append(encounterConfig.CAPT+","); 
+    		str.append(encounterConfig.CAPVy+",");
+
     	}
 		return str.toString();
 	}

@@ -78,9 +78,9 @@ public class EvolutionarySearch
 		evaluatedState.startFresh();
 		int result=EvolutionState.R_NOTDONE;	
 		
-		String title = null;//"SelfVy,SelfGs,CAPY,CAPR,CAPTheta,CAPVy,CAPGS,CAPBearing,CAPT"+"\n";
+		String title = "SelfGs,SelfVy,CAPT,CAPR,CAPTheta,CAPY,CAPGs,CAPBearing,CAPVy,Fitness,AccidentRate"+"\n";
 		boolean isAppending = false;
-		String logFileName = "./DataSet/"+problemName+"_ES_" +seed0+ "_Dataset.csv";
+		String logFileName = "./DataSet/ES/"+problemName+"_ES_" +seed0+ "_Dataset.csv";
 //		String logFileName = "AllInOne_Dataset.csv";
 		
 		int i=0;		
@@ -136,26 +136,26 @@ public class EvolutionarySearch
 	{
 		genomeString = genomeString.trim();
 		String[] pArr= genomeString.split("\\s+|,");
-//		for(String s:pArr)
-//		{
-//			System.out.println(s);
-//		}
 		
 		Configuration config = Configuration.getInstance();
 		
-		config.ownshipConfig.ownshipVy = Double.parseDouble(pArr[0]);
-		config.ownshipConfig.ownshipGs = Double.parseDouble(pArr[1]);
+		config.ownshipConfig.ownshipGs = Double.parseDouble(pArr[0]);
+		config.ownshipConfig.ownshipVy = Double.parseDouble(pArr[1]);
+
 				
 		config.encountersConfig.clear();
 	
 		EncounterConfig encounterConfig = new EncounterConfig();
-		encounterConfig.CAPY= Double.parseDouble(pArr[2]);
+		encounterConfig.CAPT= Double.parseDouble(pArr[2]);
+
 		encounterConfig.CAPR= Double.parseDouble(pArr[3]);
 		encounterConfig.CAPTheta= Double.parseDouble(pArr[4]);
-		encounterConfig.CAPVy= Double.parseDouble(pArr[5]);
+		encounterConfig.CAPY= Double.parseDouble(pArr[5]);		
+
 		encounterConfig.CAPGs= Double.parseDouble(pArr[6]);
 		encounterConfig.CAPBearing= Double.parseDouble(pArr[7]);
-		encounterConfig.CAPT= Double.parseDouble(pArr[8]);
+		encounterConfig.CAPVy= Double.parseDouble(pArr[8]);
+
 		config.encountersConfig.put("intruder"+1, encounterConfig); 
 	}
 			

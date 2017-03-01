@@ -28,7 +28,7 @@ import acasx3d.generation.MDPVI;
 public class LookupTable3D
 {
 	private static LookupTable3D lookupTable3D;
-	public static String generatedFilesPrefix = "/home/xueyi/git/ACASX_3D_Testing/ACASX _3D_Testing/LookupTableFiles/";
+	public static String generatedFilesPrefix = "./LookupTableFiles/";
 	
 	public int numCStates;
 	public int numUStates;
