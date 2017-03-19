@@ -71,8 +71,8 @@ public class RandomSearch {
 	public static void searchMaxAccident(long seed0) 
 	{			
 		List<String> simDataSet = new ArrayList<String>(200);
-		String csvFileName = "./DataSet/RDM/MaxAccident_RDM_" +seed0+ "_Dataset.csv";
-		String title = "SelfGs,SelfVy,CAPT,CAPR,CAPTheta,CAPY,CAPGs,CAPBearing,CAPVy,AccidentRate"+"\n";
+		String csvFileName = "./DataSet/Experiment1/RDM/MaxAccident_RDM_" +seed0+ "_Dataset.csv";
+		String title = "SelfGs,SelfVy,CPAT,CPAR,CPATheta,CPAY,CPAGs,CPABearing,CPAVy,AccidentRate"+"\n";
 		boolean isAppending = false;
 	
 		int sampleCount=0;
@@ -84,18 +84,24 @@ public class RandomSearch {
 	        long seed = 785945568;
 			SAAModel simState= new SAAModel(seed, false); 
 			SimInitializer.generateSimulation(simState);
+			
+			double accidentRate=0;
 			if(!MaxAccidentRate.isProper(simState))
 	        {
-	        	continue;
+				accidentRate=0;
 	        }
+			else
+			{
+				for(int t=0;t<TIMES; t++)
+		        { 
+					numAccidents += MaxAccidentRate.sim(seed, null).numCollisions;
+		    		seed++;
+		        }		
+				
+				accidentRate=numAccidents*1.0/TIMES;	
+			}
 			
-			for(int t=0;t<TIMES; t++)
-	        { 
-				numAccidents += MaxAccidentRate.sim(seed, null).numCollisions;
-	    		seed++;
-	        }		
 			
-			double accidentRate=numAccidents*1.0/TIMES;	
 						
         	simDataSet.add(Configuration.getInstance().toString()+accidentRate);			
 			if(simDataSet.size()>=200)
@@ -118,7 +124,8 @@ public class RandomSearch {
 	
 	public static void main(String[] args)
 	{
-		long[] seeds = new long[]{567672542, 898946497, 679463479,884185791, 588764257};//
+		//324185792, 54896327, 567672542, 588764357, 884185771
+		long[] seeds = new long[]{175369824};//175369824
 		for (long seed:seeds)
 		{
 			searchMaxAccident(seed);
@@ -138,15 +145,15 @@ public class RandomSearch {
 		config.encountersConfig.clear();
 	
 		EncounterConfig encounterConfig = new EncounterConfig();
-		encounterConfig.CAPT= minCAPT +rdn.nextDouble(true, true)*(maxCAPT-minCAPT);
+		encounterConfig.CPAT= minCAPT +rdn.nextDouble(true, true)*(maxCAPT-minCAPT);
 
-		encounterConfig.CAPR= minCAPR +rdn.nextDouble(true, true)*(maxCAPR-minCAPR);
-		encounterConfig.CAPTheta= minCAPTheta +rdn.nextDouble(true, true)*(maxCAPTheta-minCAPTheta);
-		encounterConfig.CAPY= minCAPY +rdn.nextDouble(true, true)*(maxCAPY-minCAPY);
+		encounterConfig.CPAR= minCAPR +rdn.nextDouble(true, true)*(maxCAPR-minCAPR);
+		encounterConfig.CPATheta= minCAPTheta +rdn.nextDouble(true, true)*(maxCAPTheta-minCAPTheta);
+		encounterConfig.CPAY= minCAPY +rdn.nextDouble(true, true)*(maxCAPY-minCAPY);
 
-		encounterConfig.CAPGs= minCAPGs +rdn.nextDouble(true, true)*(maxCAPGs-minCAPGs);		
-		encounterConfig.CAPBearing= minCAPBearing +rdn.nextDouble(true, true)*(maxCAPBearing-minCAPBearing);
-		encounterConfig.CAPVy= minCAPVy +rdn.nextDouble(true, true)*(maxCAPVy-minCAPVy);
+		encounterConfig.CPAGs= minCAPGs +rdn.nextDouble(true, true)*(maxCAPGs-minCAPGs);		
+		encounterConfig.CPABearing= minCAPBearing +rdn.nextDouble(true, true)*(maxCAPBearing-minCAPBearing);
+		encounterConfig.CPAVy= minCAPVy +rdn.nextDouble(true, true)*(maxCAPVy-minCAPVy);
 
 		config.encountersConfig.put("intruder"+1, encounterConfig); 
 	}	

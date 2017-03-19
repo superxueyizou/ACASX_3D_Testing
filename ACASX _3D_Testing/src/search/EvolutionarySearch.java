@@ -36,7 +36,7 @@ import ec.util.ParameterDatabase;
  */
 public class EvolutionarySearch
 {	
-	public static String problemName="MaxAccidentRate";
+	public static String problemName="MaxAccidentRate2";
 	public static File parameterFile= new File("./src/search/"+problemName+".params");	
 	protected static List<String> simDataSet = new ArrayList<String>(200);
 	
@@ -78,10 +78,9 @@ public class EvolutionarySearch
 		evaluatedState.startFresh();
 		int result=EvolutionState.R_NOTDONE;	
 		
-		String title = "SelfGs,SelfVy,CAPT,CAPR,CAPTheta,CAPY,CAPGs,CAPBearing,CAPVy,Fitness,AccidentRate"+"\n";
+		String title = "Generation,SelfGs,SelfVy,CPAT,CPAR,CPATheta,CPAY,CPAGs,CPABearing,CPAVy,Fitness,AccidentRate"+"\n";
 		boolean isAppending = false;
-		String logFileName = "./DataSet/ES/"+problemName+"_ES_" +seed0+ "_Dataset.csv";
-//		String logFileName = "AllInOne_Dataset.csv";
+		String logFileName = "./DataSet/Experiment2/ES/2000-30/"+problemName+"_ES_" +seed0+ "_Dataset.csv";
 		
 		int i=0;		
 		while(result == EvolutionState.R_NOTDONE)
@@ -124,10 +123,16 @@ public class EvolutionarySearch
 	{
 //		goSearch();
 		
-		long[] seeds = new long[]{567672542, 898946497, 679463479,884185791, 588764257};
+		//324185792, 54896327, 567672542, 588764357, 884185771, 175369824
+
+//		long[] seeds = new long[]{324185792, 54896327};
+//		long[] seeds = new long[]{567672542, 588764357};
+		long[] seeds = new long[]{884185771};
+
 		for (long seed:seeds)
 		{
 			goSearch(seed);
+			
 		}
 	}
 
@@ -146,15 +151,15 @@ public class EvolutionarySearch
 		config.encountersConfig.clear();
 	
 		EncounterConfig encounterConfig = new EncounterConfig();
-		encounterConfig.CAPT= Double.parseDouble(pArr[2]);
+		encounterConfig.CPAT= Double.parseDouble(pArr[2]);
 
-		encounterConfig.CAPR= Double.parseDouble(pArr[3]);
-		encounterConfig.CAPTheta= Double.parseDouble(pArr[4]);
-		encounterConfig.CAPY= Double.parseDouble(pArr[5]);		
+		encounterConfig.CPAR= Double.parseDouble(pArr[3]);
+		encounterConfig.CPATheta= Double.parseDouble(pArr[4]);
+		encounterConfig.CPAY= Double.parseDouble(pArr[5]);		
 
-		encounterConfig.CAPGs= Double.parseDouble(pArr[6]);
-		encounterConfig.CAPBearing= Double.parseDouble(pArr[7]);
-		encounterConfig.CAPVy= Double.parseDouble(pArr[8]);
+		encounterConfig.CPAGs= Double.parseDouble(pArr[6]);
+		encounterConfig.CPABearing= Double.parseDouble(pArr[7]);
+		encounterConfig.CPAVy= Double.parseDouble(pArr[8]);
 
 		config.encountersConfig.put("intruder"+1, encounterConfig); 
 	}

@@ -4,17 +4,21 @@
 %------------------------------------------------------%
 clear all; clc;
 %pwd: /home/xueyi/EclipseWorkSpace/Java/ACASX_3D_Testing/ACASX _3D_Testing
-javaaddpath('./MatlabCode/ACASX_3D_Testing.jar');
+javaaddpath('./MatlabCode/ACASX_3D_Testing2.jar');
 import ACASX_3D_Testing.*
+%324185792, 54896327, 567672542, 588764357, 884185771
 
-seeds = [567672542, 898946497, 679463479,884185791, 588764257];
-for i =1:5
+seeds = [588764357];
+[row, col]=size(seeds);
+for i =1:col
     clearvars -except seeds i
     seed = seeds(i);
     global AR;
     global testPoints;
+    global count;
     testPoints=[];
     AR= search.AccidentRateEvaluator(seed)
+    count=0;
     %search.AccidentRate.main('785945568')
 
     % 1. Establish bounds for variables
@@ -30,14 +34,14 @@ for i =1:5
               ];
     % 2. Send options to Direct
     %    We tell DIRECT that the globalmin = 0
-    %    It will stop within 2% of solution
+    %    It will stop within 1% of solution
     options.testflag  = 1; 
     options.globalmin = 0; 
     options.showits   = 1;
-    options.tol       = 2;
+    options.tol       = 1;
     
-%     opts.maxevals  = 100; %max. number of function evals     (default is 1000)
-% 	opts.maxits    = 100; %max. number of iterations         (default is 10)
+    %opts.maxevals  = 10000; %max. number of function evals     (default is 1000)
+ 	%opts.maxits    = 100; %max. number of iterations         (default is 10)
 %     opts.maxdeep =100000;
     
     % 2a. NEW!
@@ -53,19 +57,19 @@ for i =1:5
     
 
     % 4. Plot iteration statistics
-    figure
-    hold on
-    plot(hist(:,2),1.0-hist(:,3), '-*')
-    xlabel('simulations');
-    ylabel('accident rate');
-    title('Iteration Statistics for maxAccidentRate');
-    hold off
+%     figure
+%     hold on
+%     plot(hist(:,2),1.0-hist(:,3), '-*')
+%     xlabel('simulations');
+%     ylabel('accident rate');
+%     title('Iteration Statistics for maxAccidentRate');
+%     hold off
     
-    filename = strcat('./DataSet/Direct/testPoints', num2str(seed), '.mat'); 
+    filename = strcat('./DataSet/Experiment2/Direct/testPoints', num2str(seed), '.mat'); 
     save(filename, 'testPoints')
-    filename = strcat('./DataSet/Direct/testPoints', num2str(seed), '.csv'); 
+    filename = strcat('./DataSet/Experiment2/Direct/testPoints', num2str(seed), '.csv'); 
     csvwrite(filename,testPoints)
-    filename = strcat('./DataSet/Direct/hist ', num2str(seed), '.mat'); 
+    filename = strcat('./DataSet/Experiment2/Direct/hist ', num2str(seed), '.mat'); 
     save(filename, 'hist')
     
 end

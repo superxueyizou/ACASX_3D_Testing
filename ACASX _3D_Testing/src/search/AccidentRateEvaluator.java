@@ -31,6 +31,13 @@ public class AccidentRateEvaluator
 	public double value(double[] x) 
 	{       
         int numAccident= 0;	
+        
+		if(MaxAccidentRate.isExcluded(x))
+        {
+        	return 0;
+        }
+		
+		
         generateConfig(x);	
         long seed = seed0;
 		SAAModel simState= new SAAModel(seed, false); 
@@ -60,15 +67,15 @@ public class AccidentRateEvaluator
 		config.encountersConfig.clear();
 	
 		EncounterConfig encounterConfig = new EncounterConfig();
-		encounterConfig.CAPT= x[2];
+		encounterConfig.CPAT= x[2];
 
-		encounterConfig.CAPR= x[3];
-		encounterConfig.CAPTheta= x[4];
-		encounterConfig.CAPY= x[5];
+		encounterConfig.CPAR= x[3];
+		encounterConfig.CPATheta= x[4];
+		encounterConfig.CPAY= x[5];
 
-		encounterConfig.CAPGs= x[6];
-		encounterConfig.CAPBearing= x[7];
-		encounterConfig.CAPVy= x[8];
+		encounterConfig.CPAGs= x[6];
+		encounterConfig.CPABearing= x[7];
+		encounterConfig.CPAVy= x[8];
 
 		config.encountersConfig.put("intruder"+1, encounterConfig); 
 	}

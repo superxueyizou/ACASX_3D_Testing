@@ -66,7 +66,7 @@ public class EncounterConfigurator extends JDialog
 			lblCAPY.setBounds(10, 21, 44, 15);
 			positionPanel.add(lblCAPY);
 			
-			final JLabel CPAYLabel = new JLabel(""+encounterConfig.CAPY);
+			final JLabel CPAYLabel = new JLabel(""+encounterConfig.CPAY);
 			CPAYLabel.setBounds(234, 21, 48, 15);
 			positionPanel.add(CPAYLabel);
 			
@@ -76,12 +76,12 @@ public class EncounterConfigurator extends JDialog
 			CAPYSlider.setSnapToTicks(true);
 			CAPYSlider.setPaintLabels(true);
 			CAPYSlider.setMinimum(-100);
-			CAPYSlider.setValue((int)(encounterConfig.CAPY));
+			CAPYSlider.setValue((int)(encounterConfig.CPAY));
 			CAPYSlider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					JSlider source = (JSlider) e.getSource();
-					encounterConfig.CAPY = source.getValue();
-					CPAYLabel.setText(""+encounterConfig.CAPY);
+					encounterConfig.CPAY = source.getValue();
+					CPAYLabel.setText(""+encounterConfig.CPAY);
 				}
 			});
 			
@@ -89,7 +89,7 @@ public class EncounterConfigurator extends JDialog
 			lblCAPR.setBounds(10, 42, 44, 15);
 			positionPanel.add(lblCAPR);
 			
-			final JLabel CAPRLabel = new JLabel(""+encounterConfig.CAPR);
+			final JLabel CAPRLabel = new JLabel(""+encounterConfig.CPAR);
 			CAPRLabel.setBounds(234, 42, 48, 15);
 			positionPanel.add(CAPRLabel);
 			
@@ -99,12 +99,12 @@ public class EncounterConfigurator extends JDialog
 			positionPanel.add(CAPRSlider);
 			CAPRSlider.setSnapToTicks(true);
 			CAPRSlider.setPaintLabels(true);
-			CAPRSlider.setValue((int)(encounterConfig.CAPR));
+			CAPRSlider.setValue((int)(encounterConfig.CPAR));
 			CAPRSlider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					JSlider source = (JSlider) e.getSource();
-					encounterConfig.CAPR = source.getValue();
-					CAPRLabel.setText(""+encounterConfig.CAPR);
+					encounterConfig.CPAR = source.getValue();
+					CAPRLabel.setText(""+encounterConfig.CPAR);
 				}
 			});
 			
@@ -112,7 +112,7 @@ public class EncounterConfigurator extends JDialog
 			lblCAPTheta.setBounds(10, 63, 44, 15);
 			positionPanel.add(lblCAPTheta);
 			
-			final JLabel CAPThetaLabel = new JLabel(""+encounterConfig.CAPTheta);
+			final JLabel CAPThetaLabel = new JLabel(""+encounterConfig.CPATheta);
 			CAPThetaLabel.setBounds(234, 63, 48, 15);
 			positionPanel.add(CAPThetaLabel);
 			
@@ -123,12 +123,12 @@ public class EncounterConfigurator extends JDialog
 			CAPThetaSlider.setPaintLabels(true);		
 			CAPThetaSlider.setMaximum(180);
 			CAPThetaSlider.setMinimum(-180);
-			CAPThetaSlider.setValue((int)(encounterConfig.CAPTheta));
+			CAPThetaSlider.setValue((int)(encounterConfig.CPATheta));
 			CAPThetaSlider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					JSlider source = (JSlider) e.getSource();
-					encounterConfig.CAPTheta = source.getValue();
-					CAPThetaLabel.setText(""+encounterConfig.CAPTheta);
+					encounterConfig.CPATheta = source.getValue();
+					CAPThetaLabel.setText(""+encounterConfig.CPATheta);
 				}
 			});	
 			
@@ -136,7 +136,7 @@ public class EncounterConfigurator extends JDialog
 			lblCAPVy.setBounds(10, 84, 44, 15);
 			positionPanel.add(lblCAPVy);
 			
-			final JLabel CAPVyLabel = new JLabel(""+encounterConfig.CAPVy);
+			final JLabel CAPVyLabel = new JLabel(""+encounterConfig.CPAVy);
 			CAPVyLabel.setBounds(234, 84, 48, 15);
 			positionPanel.add(CAPVyLabel);
 		
@@ -147,12 +147,12 @@ public class EncounterConfigurator extends JDialog
 			CAPVySlider.setPaintLabels(true);		
 			CAPVySlider.setMaximum(58);
 			CAPVySlider.setMinimum(-67);
-			CAPVySlider.setValue((int)(encounterConfig.CAPVy));
+			CAPVySlider.setValue((int)(encounterConfig.CPAVy));
 			CAPVySlider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					JSlider source = (JSlider) e.getSource();
-					encounterConfig.CAPVy = source.getValue();
-					CAPVyLabel.setText(""+encounterConfig.CAPVy);
+					encounterConfig.CPAVy = source.getValue();
+					CAPVyLabel.setText(""+encounterConfig.CPAVy);
 
 				}
 			});
@@ -161,7 +161,7 @@ public class EncounterConfigurator extends JDialog
 			lblCAPGs.setBounds(10, 105, 44, 15);
 			positionPanel.add(lblCAPGs);
 			
-			final JLabel CAPGsLabel = new JLabel(""+encounterConfig.CAPGs);
+			final JLabel CAPGsLabel = new JLabel(""+encounterConfig.CPAGs);
 			CAPGsLabel.setBounds(234, 105, 48, 15);
 			positionPanel.add(CAPGsLabel);
 			
@@ -171,12 +171,12 @@ public class EncounterConfigurator extends JDialog
 			CAPGsSlider.setSnapToTicks(true);
 			CAPGsSlider.setPaintLabels(true);		
 			CAPGsSlider.setMaximum(304);
-			CAPGsSlider.setValue((int)(encounterConfig.CAPGs));
+			CAPGsSlider.setValue((int)(encounterConfig.CPAGs));
 			CAPGsSlider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					JSlider source = (JSlider) e.getSource();
-					encounterConfig.CAPGs = source.getValue();
-					CAPGsLabel.setText(""+encounterConfig.CAPGs);
+					encounterConfig.CPAGs = source.getValue();
+					CAPGsLabel.setText(""+encounterConfig.CPAGs);
 				}
 			});
 			positionPanel.add(CAPGsSlider);
@@ -185,7 +185,7 @@ public class EncounterConfigurator extends JDialog
 			lblCAPBearing.setBounds(10, 126, 55, 15);
 			positionPanel.add(lblCAPBearing);
 			
-			final JLabel CAPBearingLabel = new JLabel(""+encounterConfig.CAPBearing);
+			final JLabel CAPBearingLabel = new JLabel(""+encounterConfig.CPABearing);
 			CAPBearingLabel.setBounds(234, 126, 48, 15);
 			positionPanel.add(CAPBearingLabel);
 		
@@ -195,12 +195,12 @@ public class EncounterConfigurator extends JDialog
 			CAPBearingSlider.setPaintLabels(true);		
 			CAPBearingSlider.setMaximum(180);
 			CAPBearingSlider.setMinimum(-180);
-			CAPBearingSlider.setValue((int)(encounterConfig.CAPBearing));
+			CAPBearingSlider.setValue((int)(encounterConfig.CPABearing));
 			CAPBearingSlider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					JSlider source = (JSlider) e.getSource();
-					encounterConfig.CAPBearing = source.getValue();
-					CAPBearingLabel.setText(""+encounterConfig.CAPBearing);
+					encounterConfig.CPABearing = source.getValue();
+					CAPBearingLabel.setText(""+encounterConfig.CPABearing);
 
 				}
 			});
@@ -210,7 +210,7 @@ public class EncounterConfigurator extends JDialog
 			lblCAPT.setBounds(10, 147, 44, 15);
 			positionPanel.add(lblCAPT);
 			
-			final JLabel CAPTLabel = new JLabel(""+encounterConfig.CAPT);
+			final JLabel CAPTLabel = new JLabel(""+encounterConfig.CPAT);
 			CAPTLabel.setBounds(234, 147, 48, 15);
 			positionPanel.add(CAPTLabel);
 		
@@ -220,12 +220,12 @@ public class EncounterConfigurator extends JDialog
 			CAPTSlider.setPaintLabels(true);		
 			CAPTSlider.setMaximum(30);
 			CAPTSlider.setMinimum(20);
-			CAPTSlider.setValue((int)(encounterConfig.CAPT));
+			CAPTSlider.setValue((int)(encounterConfig.CPAT));
 			CAPTSlider.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					JSlider source = (JSlider) e.getSource();
-					encounterConfig.CAPT = source.getValue();
-					CAPTLabel.setText(""+encounterConfig.CAPT);
+					encounterConfig.CPAT = source.getValue();
+					CAPTLabel.setText(""+encounterConfig.CPAT);
 
 				}
 			});

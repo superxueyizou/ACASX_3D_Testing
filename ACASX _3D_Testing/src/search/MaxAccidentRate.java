@@ -23,6 +23,7 @@ import visualization.modeling.observer.AccidentDetector;
 import visualization.modeling.observer.SimulationReturnType;
 import visualization.modeling.uas.Proximity;
 import visualization.modeling.uas.UAS;
+
 import ec.EvolutionState;
 import ec.Individual;
 import ec.Problem;
@@ -52,6 +53,17 @@ public class MaxAccidentRate extends Problem implements SimpleProblemForm
         int times =100;   	
         double totalFitness= 0;	
         int numAccidents=0;
+        
+		if(isExcluded(genes))
+        {
+			((SimpleFitness)ind2.fitness).setFitness(   state,            
+		            0,/// ...the fitness...
+		            false);///... is the individual ideal?  Indicate here...
+
+			EvolutionarySearch.simDataSet.add(state.generation+","+Configuration.getInstance().toString()+0+","+0.0);	
+	        ind2.evaluated = true;
+        	return;
+        }
 		
 		long seed = 785945568;
 		SAAModel simState= new SAAModel(seed, false); 
@@ -62,7 +74,7 @@ public class MaxAccidentRate extends Problem implements SimpleProblemForm
 		            0,/// ...the fitness...
 		            false);///... is the individual ideal?  Indicate here...
 
-			EvolutionarySearch.simDataSet.add(Configuration.getInstance().toString()+0+","+0.0);	
+			EvolutionarySearch.simDataSet.add(state.generation+","+Configuration.getInstance().toString()+0+","+0.0);	
 	        ind2.evaluated = true;
         	return;
         }
@@ -70,14 +82,14 @@ public class MaxAccidentRate extends Problem implements SimpleProblemForm
 		for(int t=0;t<times; t++)
         { 
 			SimulationReturnType result = sim(seed, genes);
-			totalFitness += 10000.0/(1.0+result.miniProximity.toValue());
+			totalFitness += 1.0/(1.0+result.miniProximity.toValue());
 			numAccidents += result.numCollisions;
     		seed++;
         }
 		
 		float fitness= (float) (totalFitness/times);    
 		double accidentRate = numAccidents*1.0/times;
-		EvolutionarySearch.simDataSet.add(Configuration.getInstance().toString()+fitness+","+accidentRate);	
+		EvolutionarySearch.simDataSet.add(state.generation+","+Configuration.getInstance().toString()+fitness+","+accidentRate);	
         
         if (!(ind2.fitness instanceof SimpleFitness))
             state.output.fatal("Whoa!  It's not a SimpleFitness!!!",null);
@@ -102,7 +114,8 @@ public class MaxAccidentRate extends Problem implements SimpleProblemForm
 		{
 			SimInitializer.generateSimulation(simState);
 		}
-    	
+
+			
 		simState.start();	
 		do
 		{
@@ -132,6 +145,37 @@ public class MaxAccidentRate extends Problem implements SimpleProblemForm
 		}	    
 	       
 		return true;
+	}
+	
+	public static boolean isExcluded(double[] genes)
+	{	
+		double ownshipGs = genes[0];
+		double ownshipVy = genes[1];
+		
+		double CPAT= genes[2];
+		
+		double CPAR= genes[3];
+		double CPATheta= genes[4];
+		double CPAY= genes[5];
+		
+		double CPAGs= genes[6];
+		double CPABearing= genes[7];
+		double CPAVy= genes[8];
+		
+		//rule 1
+		if(Math.abs(ownshipGs - CPAGs)<50 && ownshipVy*CPAVy<0 && Math.abs(CPABearing)<15)
+		{
+			return true;
+		}
+		
+		//rule 2
+//		if(ownshipVy*CPAVy<0 && Math.abs(CPABearing)<20)
+//		{
+//			return true;
+//		}
+		
+	       
+		return false;
 	}
 
 }

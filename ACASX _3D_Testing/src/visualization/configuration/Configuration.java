@@ -60,15 +60,15 @@ public class Configuration
 
     	for (EncounterConfig encounterConfig: encountersConfig.values() )
     	{
-    		str.append(encounterConfig.CAPT+","); 
+    		str.append(encounterConfig.CPAT+","); 
 
-    		str.append(encounterConfig.CAPR+",");
-    		str.append(encounterConfig.CAPTheta+",");
-    		str.append(encounterConfig.CAPY+",");
+    		str.append(encounterConfig.CPAR+",");
+    		str.append(encounterConfig.CPATheta+",");
+    		str.append(encounterConfig.CPAY+",");
 
-    		str.append(encounterConfig.CAPGs+",");
-    		str.append(encounterConfig.CAPBearing+",");    
-    		str.append(encounterConfig.CAPVy+",");
+    		str.append(encounterConfig.CPAGs+",");
+    		str.append(encounterConfig.CPABearing+",");    
+    		str.append(encounterConfig.CPAVy+",");
 
     	}
 		return str.toString();

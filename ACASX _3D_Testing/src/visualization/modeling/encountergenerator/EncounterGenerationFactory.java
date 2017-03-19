@@ -28,10 +28,10 @@ public class EncounterGenerationFactory {
 	
 	public static UAS generateIntruder(SAAModel state, UAS ownship, String intruderAlias, EncounterConfig encounterConfig)
 	{			
-		Double3D intruderVel = new Double3D(encounterConfig.CAPGs*Math.cos(Math.toRadians(encounterConfig.CAPBearing)), encounterConfig.CAPVy, encounterConfig.CAPGs*Math.sin(Math.toRadians(encounterConfig.CAPBearing)));
-		Double3D ownshipCAP = ownship.getLoc().add(ownship.getVel().multiply(encounterConfig.CAPT));
-		Double3D intruderCAP =ownshipCAP.add(new Double3D(encounterConfig.CAPR*Math.cos(Math.toRadians(encounterConfig.CAPTheta)), encounterConfig.CAPY, encounterConfig.CAPR*Math.sin(Math.toRadians(encounterConfig.CAPTheta))));
-		Double3D location=intruderCAP.add(intruderVel.negate().multiply(encounterConfig.CAPT));		
+		Double3D intruderVel = new Double3D(encounterConfig.CPAGs*Math.cos(Math.toRadians(encounterConfig.CPABearing)), encounterConfig.CPAVy, encounterConfig.CPAGs*Math.sin(Math.toRadians(encounterConfig.CPABearing)));
+		Double3D ownshipCAP = ownship.getLoc().add(ownship.getVel().multiply(encounterConfig.CPAT));
+		Double3D intruderCAP =ownshipCAP.add(new Double3D(encounterConfig.CPAR*Math.cos(Math.toRadians(encounterConfig.CPATheta)), encounterConfig.CPAY, encounterConfig.CPAR*Math.sin(Math.toRadians(encounterConfig.CPATheta))));
+		Double3D location=intruderCAP.add(intruderVel.negate().multiply(encounterConfig.CPAT));		
 
 		UASPerformance intruderPerformance = new UASPerformance(globalConfig.stdDevX, globalConfig.stdDevY,globalConfig.stdDevZ,
 				globalConfig.maxGS, globalConfig.minGS, globalConfig.maxVS, globalConfig.minVS);

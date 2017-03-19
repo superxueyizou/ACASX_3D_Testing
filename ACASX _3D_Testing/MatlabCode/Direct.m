@@ -95,9 +95,9 @@ n            = size(bounds,1);
 if nargin<3, opts=[]; end
 if (nargin>=3) & (length(opts)==0), opts=[]; end
 getopts(opts, ...
- 'maxits',     20,...         % maximum of iterations
- 'maxevals',   1000,...         % maximum # of function evaluations
- 'maxdeep',    100,...        % maximum number of side divisions
+ 'maxits',     100,...         % maximum of iterations
+ 'maxevals',   60000,...         % maximum # of function evaluations
+ 'maxdeep',    1000,...        % maximum number of side divisions
  'testflag',   0,...          % terminate if within a relative tolerence of f_opt
  'globalmin',  0,...          % minimum value of function
  'ep',         1e-4,...       % global/local weight parameter.
@@ -170,7 +170,7 @@ while perror > tol
       end
       
       if fcncounter > maxevals
-          disp(fprintf('Exceeded max iterations (%d).\n', maxevals))       
+          disp(fprintf('Exceeded max function evaluations (%d).\n', maxevals))       
           perror = -1;
       end
    else

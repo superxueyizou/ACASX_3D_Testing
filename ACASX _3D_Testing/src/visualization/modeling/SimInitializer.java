@@ -68,15 +68,15 @@ public class SimInitializer
 		encountersConfig.clear();
 
 		EncounterConfig encounterConfig = new EncounterConfig();
-		encounterConfig.CAPT= genes[2];
+		encounterConfig.CPAT= genes[2];
 
-		encounterConfig.CAPR= genes[3];
-		encounterConfig.CAPTheta= genes[4];
-		encounterConfig.CAPY= genes[5];
+		encounterConfig.CPAR= genes[3];
+		encounterConfig.CPATheta= genes[4];
+		encounterConfig.CPAY= genes[5];
 
-		encounterConfig.CAPGs= genes[6];
-		encounterConfig.CAPBearing= genes[7];
-		encounterConfig.CAPVy= genes[8];
+		encounterConfig.CPAGs= genes[6];
+		encounterConfig.CPABearing= genes[7];
+		encounterConfig.CPAVy= genes[8];
 
 		encountersConfig.put("intruder"+1, encounterConfig);    	
 	}
