@@ -69,8 +69,8 @@ public class MDPVI
 				double aMax2 = Double.NEGATIVE_INFINITY;
 				for (Integer a : actions) 
 				{
-					double aSum1=mdp.reward(s, a);	
-					double aSum2=mdp.reward(s, a);	
+					double aSum1, aSum2;
+					aSum1=aSum2=mdp.reward(s, a);
 					TransitionStatesAndProbs= mdp.getTransitionStatesAndProbs(s, a);		
 					
 					Set<Entry<State_Ctrl,Double>> entrySet = TransitionStatesAndProbs.entrySet();							
