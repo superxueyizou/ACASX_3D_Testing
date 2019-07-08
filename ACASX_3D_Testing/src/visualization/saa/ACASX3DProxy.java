@@ -78,7 +78,7 @@ public class ACASX3DProxy implements Steppable
 			{
 				Double2D vctDistance = new Double2D(uas.getLoc().x-hostUAS.getLoc().x, uas.getLoc().z-hostUAS.getLoc().z);
 				double r=vctDistance.length();
-				double h=(uas.getLoc().y-uas.getLoc().y);
+				double h=(uas.getLoc().y-hostUAS.getLoc().y);
 		
 				if(Math.abs(h)<=MDP.UPPER_H && r<=DTMC.UPPER_R)
 				{
